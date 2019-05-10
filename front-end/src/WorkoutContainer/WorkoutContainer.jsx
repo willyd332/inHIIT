@@ -41,9 +41,25 @@ class WorkoutContainer extends Component {
 
     }
 
-    createWorkout = (formData, e) => {
+    createWorkout = async (formData, e) => {
         e.preventDefault();
-        console.log(formData);
+        try {
+            const createdWorkout = await fetch('http://localhost:9000/workouts', {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const parsedResponse = await createdWorkout.json();
+            console.log(parsedResponse);
+
+            this.setState({workouts: [...this.state.workouts, parsedResponse.data]})
+
+        } catch(err) {
+            console.log(err)
+        }
         
     }
 
