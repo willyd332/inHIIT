@@ -1,4 +1,5 @@
 import React from 'react';
+import NewWorkout from './NewWorkout/NewWorkout';
 
 const WorkoutList = (props) => {
     
@@ -16,6 +17,7 @@ const WorkoutList = (props) => {
 
     return(
         <div>
+            <NewWorkout createWorkout={props.createWorkout}/>
             <ul>
                 {workouts}
             </ul>

@@ -41,11 +41,17 @@ class WorkoutContainer extends Component {
 
     }
 
+    createWorkout = (formData, e) => {
+        e.preventDefault();
+        console.log(formData);
+        
+    }
+
     render(){
         return(
             <div>
                 <h1>WorkoutContainer</h1>
-                <WorkoutList workouts={this.state.workouts}/> 
+                <WorkoutList workouts={this.state.workouts} createWorkout={this.createWorkout}/> 
             </div>
             
         )
