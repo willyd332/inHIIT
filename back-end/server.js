@@ -17,6 +17,7 @@ app.use(cors({
 
 
 app.use(morgan('short'));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 
@@ -29,6 +30,6 @@ app.use('/workouts', workoutController);
 
 
 
-app.listen(process.env.PORT || 9001, ()=>{
-    console.log("Server is running on port 9001")
+app.listen(process.env.PORT || 9000, ()=>{
+    console.log("Server is running on port 9000")
 })
