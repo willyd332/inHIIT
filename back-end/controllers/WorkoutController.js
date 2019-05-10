@@ -60,7 +60,20 @@ router.delete('/:id', async (req, res) => {
 
 //EDIT ROUTE
 
+router.put('/:id', async (req, res) => {
 
+    try {
+        const updatedWorkout = await Workout.findByIdAndUpdate(req.params.id, req.body, {new: true});
+
+        res.json({
+            status: 200,
+            data: updatedWorkout
+        })
+
+    } catch(err) {
+        console.log(err);
+    }
+})
 
 
 //SHOW ROUTE
