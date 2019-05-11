@@ -28,7 +28,7 @@ class EditWorkout extends React.Component {
     return (
       <div>
         
-        <Button color="danger" onClick={(e)=>{this.toggle(); this.selectThisWorkout();}}>{this.props.buttonLabel}</Button>
+        <Button onClick={(e)=>{this.toggle(); this.selectThisWorkout();}}>Edit</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Edit your workout!</ModalHeader>
           

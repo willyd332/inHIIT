@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  color: white;
 }
 
 .App-logo {
@@ -21,6 +22,31 @@
 
 .App-link {
   color: #61dafb;
+}
+
+img.logo {
+  height: 150px;
+  margin: 30px
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+div.workout-div {
+  margin: 5px;
+  border-radius: 10px;
+}
+
+div.workout-div.flex-container {
+  background-color: rgba(0, 0, 0, 0.377);
+  width: 100%;
+  min-width: 150px;
+}
+
+div.workout-list {
+  width: 80%;
 }
 
 @keyframes App-logo-spin {

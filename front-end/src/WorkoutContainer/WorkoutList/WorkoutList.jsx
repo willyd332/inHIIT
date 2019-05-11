@@ -15,22 +15,24 @@ const WorkoutList = (props) => {
     const workouts = props.workouts.map((workout)=> {
         // console.log(workout);
         return(
-            <li key={workout._id}>
-                <h2>Workout Name {workout.name}</h2>
-                <p>Interval One {workout.intervalOne}</p>
-                <p>Interval Two {workout.intervalTwo}</p>
-                <p>Cycles {workout.cycles}</p>
-                <EditWorkout workout={workout} modalShows={props.modalShows} editWorkout={props.editWorkout} handleFormChange={props.handleFormChange}></EditWorkout>
-            </li>
+            <div class="workout-div flex-container" key={workout._id}>
+                <div>
+                    <h2>{workout.name}</h2>
+                    <p>Interval One: {workout.intervalOne}</p>
+                    <p>Interval Two: {workout.intervalTwo}</p>
+                    <p>Cycles: {workout.cycles}</p>
+                    <EditWorkout workout={workout} modalShows={props.modalShows} editWorkout={props.editWorkout} handleFormChange={props.handleFormChange}></EditWorkout>
+                </div>
+            </div>
         )
     });
 
     return(
         <div>
-            <NewWorkout createWorkout={props.createWorkout}/>
-            <ul>
+            <NewWorkout buttonLabel={"New Workout"} createWorkout={props.createWorkout}/>
+            <div class="workout-div flex-container">
                 {workouts}
-            </ul>
+            </div>
         </div>
         
     )

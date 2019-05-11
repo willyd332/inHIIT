@@ -123,8 +123,7 @@ class WorkoutContainer extends Component {
         console.log(this.state.workoutToEdit._id, "this.state.workoutToEdit._id");
 
         return(
-            <div>
-                <h1>WorkoutContainer</h1>
+            <div class="flex-container">
                 <WorkoutList modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
             </div>
             
