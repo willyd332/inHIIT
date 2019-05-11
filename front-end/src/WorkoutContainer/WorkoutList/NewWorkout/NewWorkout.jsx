@@ -30,17 +30,17 @@ class NewWorkout extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        <Button className="newButton" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}>New Workout</ModalHeader>
           <form onSubmit={this.props.createWorkout.bind(null, this.state)}>
           <ModalBody>
             
                 
-                    name: <input onChange={this.updateState} type="text" name="name"/><br/>
-                    intervalOne: <input onChange={this.updateState} type="text" name="intervalOne"/><br/>
-                    intervalTwo: <input onChange={this.updateState} type="text" name="intervalTwo"/><br/>
-                    cycles: <input onChange={this.updateState} type="text" name="cycles"/><br/>
+                    Name: <input onChange={this.updateState} type="text" name="name"/><br/>
+                    IntervalOne: <input onChange={this.updateState} type="text" name="intervalOne"/><br/>
+                    IntervalTwo: <input onChange={this.updateState} type="text" name="intervalTwo"/><br/>
+                    Cycles: <input onChange={this.updateState} type="text" name="cycles"/><br/>
                     
                 
 
@@ -59,46 +59,3 @@ class NewWorkout extends Component {
 export default NewWorkout;
 
 
-
-
-// import React, {Component} from 'react';
-
-// class NewWorkout extends Component {
-//     constructor(){
-//         super();
-//         this.state = {
-//             name: '',
-//             intervalOne: null,
-//             intervalTwo: null,
-//             cycles: null,
-//             modal: false
-//         }
-//         this.toggle = this.toggle.bind(this);
-//     }
-
-//     updateState = (e) =>{
-//         e.preventDefault();
-//         this.setState({
-//             [e.currentTarget.name]: e.currentTarget.value
-//         })
-//     }
-
-//     render(){
-//         // console.log(this.state, 'new workout')
-//         return(
-//             <div>
-//                 <p>New Werkout form here</p>
-//                 <form onSubmit={this.props.createWorkout.bind(null, this.state)}>
-//                     name: <input onChange={this.updateState} type="text" name="name"/><br/>
-//                     intervalOne: <input onChange={this.updateState} type="text" name="intervalOne"/><br/>
-//                     intervalTwo: <input onChange={this.updateState} type="text" name="intervalTwo"/><br/>
-//                     cycles: <input onChange={this.updateState} type="text" name="cycles"/><br/>
-//                     <button type="submit">Submit</button>
-//                 </form>
-
-//             </div>
-//         )
-//     }
-// }
-
-// export default NewWorkout;

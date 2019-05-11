@@ -22,7 +22,7 @@ class WorkoutContainer extends Component {
     }
 
     getWorkouts = async () => {
-        console.log("workouts function hit");
+
         try {
             const response = await fetch('http://localhost:9000/workouts');
 
@@ -132,11 +132,9 @@ class WorkoutContainer extends Component {
 
     render(){
 
-        console.log(this.state.workoutToEdit._id, "this.state.workoutToEdit._id");
-
         return(
-            <div class="flex-container">
-                <WorkoutList modalShows={this.modalShows} deleteWorkout={this.deleteWorkout} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
+            <div className="flex-container">
+                <WorkoutList modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
             </div>
             
         )

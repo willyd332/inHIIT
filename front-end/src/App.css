@@ -29,6 +29,17 @@ img.logo {
   margin: 30px
 }
 
+input {
+  width: 100%;
+}
+button.newButton {
+  width: 100%;
+}
+
+button.btn.btn-secondary {
+  margin: 20px;
+}
+
 .flex-container {
   display: flex;
   justify-content: center;

@@ -15,7 +15,7 @@ const WorkoutList = (props) => {
     const workouts = props.workouts.map((workout)=> {
         // console.log(workout);
         return(
-            <div class="workout-div flex-container" key={workout._id}>
+            <div className="workout-div flex-container" key={workout._id}>
                 <div>
                     <h2>{workout.name}</h2>
                     <p>Interval One: {workout.intervalOne}</p>
@@ -33,7 +33,7 @@ const WorkoutList = (props) => {
     return(
         <div>
             <NewWorkout buttonLabel={"New Workout"} createWorkout={props.createWorkout}/>
-            <div class="workout-div flex-container">
+            <div className="workout-div flex-container">
                 {workouts}
             </div>
         </div>

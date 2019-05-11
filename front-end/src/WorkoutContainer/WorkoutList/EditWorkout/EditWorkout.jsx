@@ -39,7 +39,7 @@ class EditWorkout extends React.Component {
                     intervalOne: <input onChange={this.props.handleFormChange} type="text" name="intervalOne"/><br/>
                     intervalTwo: <input onChange={this.props.handleFormChange} type="text" name="intervalTwo"/><br/>
                     cycles: <input onChange={this.props.handleFormChange} type="text" name="cycles"/><br/>
-                    id: <h1>{this.props.workoutID}</h1>
+
                 
           </ModalBody>
           <ModalFooter>
