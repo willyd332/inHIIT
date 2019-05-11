@@ -19,7 +19,7 @@ class NewWorkout extends Component {
     }
 
     render(){
-
+        // console.log(this.state, 'new workout')
         return(
             <div>
                 <p>New Werkout form here</p>

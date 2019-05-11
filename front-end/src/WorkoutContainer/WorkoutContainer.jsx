@@ -53,9 +53,64 @@ class WorkoutContainer extends Component {
             });
 
             const parsedResponse = await createdWorkout.json();
-            console.log(parsedResponse);
-
             this.setState({workouts: [...this.state.workouts, parsedResponse.data]})
+
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
+    deleteWorkout = (e) => {
+        e.preventDefault();
+        console.log('hit delete function');
+
+
+    };
+
+    handleFormChange = (e) => {
+        this.setState({
+            workoutToEdit: {
+                ...this.state.workoutToEdit, 
+                [e.target.name]: e.target.value
+            }
+        })
+    }
+
+    modalShows = (thisOne) => {
+        this.setState({
+            workoutToEdit: thisOne
+        })
+    }
+
+    editWorkout = async (e) => {
+        e.preventDefault();
+        console.log(this.state.workoutToEdit._id)
+        try {
+            const updateWorkout = await fetch('http://localhost:9000/workouts/' + this.state.workoutToEdit._id, {
+                method: 'PUT',
+                body: JSON.stringify(this.state.workoutToEdit),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            const parsedResponse = await updateWorkout.json();
+
+            console.log(parsedResponse, "this is parsed response");
+
+            const editedWorkoutArr = this.state.workouts.map((workout) => {
+                if(workout._id === this.state.workoutToEdit._id){
+                    workout = parsedResponse.data
+                }
+
+                return workout
+
+            });
+
+            this.setState({
+                workouts: editedWorkoutArr,
+
+            });
 
         } catch(err) {
             console.log(err)
@@ -64,10 +119,13 @@ class WorkoutContainer extends Component {
     }
 
     render(){
+
+        console.log(this.state.workoutToEdit._id, "this.state.workoutToEdit._id");
+
         return(
             <div>
                 <h1>WorkoutContainer</h1>
-                <WorkoutList workouts={this.state.workouts} createWorkout={this.createWorkout}/> 
+                <WorkoutList modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
             </div>
             
         )
