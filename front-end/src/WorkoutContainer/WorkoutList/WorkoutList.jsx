@@ -22,6 +22,9 @@ const WorkoutList = (props) => {
                     <p>Interval Two: {workout.intervalTwo}</p>
                     <p>Cycles: {workout.cycles}</p>
                     <EditWorkout workout={workout} modalShows={props.modalShows} editWorkout={props.editWorkout} handleFormChange={props.handleFormChange}></EditWorkout>
+                    <button onClick={() =>{
+                        props.deleteWorkout(workout._id)
+                    }}>Delete</button>
                 </div>
             </div>
         )

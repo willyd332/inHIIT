@@ -60,10 +60,29 @@ class WorkoutContainer extends Component {
         }
     }
 
-    deleteWorkout = (e) => {
-        e.preventDefault();
-        console.log('hit delete function');
+    deleteWorkout = async (deletedWorkoutID) => {
+        console.log(deletedWorkoutID, 'hit delete function');
+        try{
+            const deleteWorkout = await fetch(`http://localhost:9000/workouts/${deletedWorkoutID}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
 
+            const parsedResponse = await deleteWorkout.json();
+            console.log(parsedResponse, 'parsed response');
+            console.log(deletedWorkoutID, "deletedWorkoutID from before")
+            if(parsedResponse.status === 200){
+                this.setState({
+                    workouts: this.state.workouts.filter(workout => workout._id !== deletedWorkoutID)
+                })
+            }
+
+
+        } catch(err) {
+            console.log(err);
+        }
 
     };
 
@@ -95,27 +114,20 @@ class WorkoutContainer extends Component {
             })
 
             const parsedResponse = await updateWorkout.json();
-
-            console.log(parsedResponse, "this is parsed response");
-
             const editedWorkoutArr = this.state.workouts.map((workout) => {
                 if(workout._id === this.state.workoutToEdit._id){
                     workout = parsedResponse.data
                 }
-
                 return workout
-
             });
 
             this.setState({
                 workouts: editedWorkoutArr,
-
             });
 
         } catch(err) {
             console.log(err)
-        }
-        
+        }        
     }
 
     render(){
@@ -124,7 +136,7 @@ class WorkoutContainer extends Component {
 
         return(
             <div class="flex-container">
-                <WorkoutList modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
+                <WorkoutList modalShows={this.modalShows} deleteWorkout={this.deleteWorkout} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
             </div>
             
         )
