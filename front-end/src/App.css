@@ -96,6 +96,18 @@ div.workout-list {
   width: 80%;
 }
 
+div.timer {
+  height: 330px;
+}
+
+button.start-button {
+  background-color: green;
+}
+
+button.stop-button {
+  background-color: red;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
