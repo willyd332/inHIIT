@@ -7,8 +7,10 @@ class TimerApp extends Component {
             seconds: 0,
             intervalOne: 0,
             intervalTwo: 0,
-            cycles: 0
+            cycles: 0,
+            interval: null
         }
+        
     
     }
 
@@ -21,7 +23,25 @@ class TimerApp extends Component {
         })
     }
 
+    secondsGoUp = () => {
+            this.setState({
+                seconds: this.state.seconds += 1
+            })
+        
+    }
 
+    timer = () => {
+        this.setState({
+            interval: setInterval(this.secondsGoUp, 1000)
+        })
+    }
+    
+    
+
+    clear = () => {
+        console.log('clear function hit');
+        clearInterval(this.state.interval);
+    }
 
     render(){
         console.log(this.state, "state in timer component")
@@ -29,9 +49,9 @@ class TimerApp extends Component {
             <div>
 
                 <div>
-                    <div className='timer'></div>
-                    <button className='start-button'>Start</button>
-                    <button className='stop-button'>Stop</button>
+                    <div className='timer'><h1>{this.state.seconds}</h1></div>
+                    <button onClick={this.timer} className='start-button'>Start</button>
+                    <button onClick={this.clear} className='stop-button'>Stop</button>
                 </div>
             </div>
         )
