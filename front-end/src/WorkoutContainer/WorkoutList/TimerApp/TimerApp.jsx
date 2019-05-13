@@ -8,6 +8,7 @@ class TimerApp extends Component {
             intervalEnd: 0,
             cycles: 0,
             interval: null,
+            whichInterval: 'Interval One',
             victoryMessage: ""
         }
         
@@ -22,14 +23,13 @@ class TimerApp extends Component {
         })
     }
 
-    
-
     secondsGoUp = () => {
             if(this.state.cycles === (this.props.workout.cycles * 2)){
                 clearInterval(this.state.interval);
                 this.setState({
                     seconds: null,
-                    victoryMessage: "You did it!"
+                    victoryMessage: 'Crushed It!',
+                    cycles: 199
                 })
                 
 
@@ -38,18 +38,22 @@ class TimerApp extends Component {
                     seconds: this.state.seconds += 1
                 })
             } else if(this.state.cycles % 2 === 0 && this.state.seconds === this.state.intervalEnd){
-                //clearInterval(this.state.interval)
+                
+                document.getElementById('timer-div').classList.toggle('intervalBackground');
                 this.setState({
                     seconds: 0,
                     intervalEnd: this.props.workout.intervalTwo,
-                    cycles: this.state.cycles += 1
+                    cycles: this.state.cycles += 1,
+                    whichInterval: 'Interval Two'
                     
                 })            
             } else if(this.state.cycles % 2 !== 0 && this.state.seconds === this.state.intervalEnd){
+                
                 this.setState({
                     seconds: 0,
                     intervalEnd: this.props.workout.intervalOne,
-                    cycles: this.state.cycles += 1
+                    cycles: this.state.cycles += 1,
+                    whichInterval: 'Interval One'
                 })
             }        
     }
@@ -73,6 +77,8 @@ class TimerApp extends Component {
             <div className="flex-container">
                 <div>
                     <div id="timer-div" className='timer'>
+                        <p>Cycle: {Math.floor(this.state.cycles / 2)  + 1}</p>
+                        <p>{this.state.whichInterval}</p>
                         <h1>{this.state.seconds}</h1>
                         <h2 className="victoryMessage">{this.state.victoryMessage}</h2>
                     </div>
