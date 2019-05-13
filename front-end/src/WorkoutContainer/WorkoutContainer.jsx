@@ -16,14 +16,15 @@ class WorkoutContainer extends Component {
             },
             modalShowing: false, 
             weather: {
-                city: 'Denver',
-                temp: null, // currently.temperature
-                currentSummary: '', // currently.summary
-                dailyOutlook: '' // daily.summary
+                temp: null,
+                currentSummary: '',
+                dailyOutlook: ''
+                
 
             },
             lat: 39.7392,
-            long: -104.9903
+            long: -104.9903,
+            city: 'Denver'
         }
     }
 
@@ -95,7 +96,8 @@ class WorkoutContainer extends Component {
                 weather: {
                     temp: parsedWeather.currently.temperature,
                     currentSummary: parsedWeather.currently.summary,
-                    dailyOutlook: parsedWeather.daily.summary
+                    dailyOutlook: parsedWeather.daily.summary,
+                    city: this.state.city
                 }
             })
 

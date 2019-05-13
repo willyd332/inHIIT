@@ -29,6 +29,14 @@ img.logo {
   margin: 30px
 }
 
+div.start {
+  height: 400px;
+}
+
+div.hidden {
+  visibility: hidden;
+  height: 0px;
+}
 
 input {
   width: 100%;
