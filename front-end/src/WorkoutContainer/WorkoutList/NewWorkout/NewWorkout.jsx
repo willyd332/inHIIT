@@ -29,7 +29,7 @@ class NewWorkout extends Component {
 
   render() {
     return (
-      <div>
+      <div className="flex-container">
         <Button className="newButton" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>New Workout</ModalHeader>

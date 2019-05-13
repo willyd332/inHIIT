@@ -133,7 +133,7 @@ class WorkoutContainer extends Component {
     render(){
 
         return(
-            <div className="flex-container">
+            <div className="workout-container flex-container">
                 <WorkoutList modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
             </div>
             
