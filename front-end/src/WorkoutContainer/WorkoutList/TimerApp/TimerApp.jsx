@@ -5,10 +5,10 @@ class TimerApp extends Component {
         super();
         this.state = {
             seconds: 0,
-            intervalOne: 0,
-            intervalTwo: 0,
+            intervalEnd: 0,
             cycles: 0,
-            interval: null
+            interval: null,
+            victoryMessage: ""
         }
         
     
@@ -17,17 +17,41 @@ class TimerApp extends Component {
     componentDidMount = () => {
         this.setState({
             seconds: 0,
-            intervalOne: this.props.workout.intervalOne,
-            intervalTwo: this.props.workout.intervalTwo,
-            cycles: this.props.workout.cycles
+            intervalEnd: this.props.workout.intervalOne,
+            cycles: 0
         })
     }
 
+    
+
     secondsGoUp = () => {
-            this.setState({
-                seconds: this.state.seconds += 1
-            })
-        
+            if(this.state.cycles === (this.props.workout.cycles * 2)){
+                clearInterval(this.state.interval);
+                this.setState({
+                    seconds: null,
+                    victoryMessage: "You did it!"
+                })
+                
+
+            }else if(this.state.seconds < this.state.intervalEnd){
+                this.setState({
+                    seconds: this.state.seconds += 1
+                })
+            } else if(this.state.cycles % 2 === 0 && this.state.seconds === this.state.intervalEnd){
+                //clearInterval(this.state.interval)
+                this.setState({
+                    seconds: 0,
+                    intervalEnd: this.props.workout.intervalTwo,
+                    cycles: this.state.cycles += 1
+                    
+                })            
+            } else if(this.state.cycles % 2 !== 0 && this.state.seconds === this.state.intervalEnd){
+                this.setState({
+                    seconds: 0,
+                    intervalEnd: this.props.workout.intervalOne,
+                    cycles: this.state.cycles += 1
+                })
+            }        
     }
 
     timer = () => {
@@ -46,12 +70,16 @@ class TimerApp extends Component {
     render(){
         console.log(this.state, "state in timer component")
         return(
-            <div>
-
+            <div className="flex-container">
                 <div>
-                    <div className='timer'><h1>{this.state.seconds}</h1></div>
-                    <button onClick={this.timer} className='start-button'>Start</button>
-                    <button onClick={this.clear} className='stop-button'>Stop</button>
+                    <div id="timer-div" className='timer'>
+                        <h1>{this.state.seconds}</h1>
+                        <h2 className="victoryMessage">{this.state.victoryMessage}</h2>
+                    </div>
+                    <div className="flex-container">
+                        <button onClick={this.timer} className='start-button'>Start</button>
+                        <button onClick={this.clear} className='stop-button'>Pause</button>
+                    </div>
                 </div>
             </div>
         )
