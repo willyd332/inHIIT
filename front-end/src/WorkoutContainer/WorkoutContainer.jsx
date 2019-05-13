@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import WorkoutList from './WorkoutList/WorkoutList'
+import WorkoutList from './WorkoutList/WorkoutList';
+import WeatherForecast from './WeatherForecast/WeatherForecast';
 
 class WorkoutContainer extends Component {
     constructor(){
@@ -13,12 +14,21 @@ class WorkoutContainer extends Component {
                 intervalTwo: 0,
                 cycles: 0
             },
-            modalShowing: false
+            modalShowing: false, 
+            weather: {
+                temp: null, // currently.temperature
+                currentSummary: '', // currently.summary
+                dailyOutlook: '' // daily.summary
+
+            },
+            lat: null,
+            long: null
         }
     }
 
     componentDidMount(){
         this.getWorkouts();
+        this.getWeather();
     }
 
     getWorkouts = async () => {
@@ -33,6 +43,43 @@ class WorkoutContainer extends Component {
             const parsedWorkouts = await response.json();
             this.setState({
                 workouts: parsedWorkouts.data
+            })
+
+        } catch(err) {
+            console.log(err);
+        }
+
+    }
+
+
+    weatherSearch = (e, zipCode) => {
+        e.preventDefault();
+        console.log(zipCode);
+        
+        this.setState({
+            lat: 5,
+            long: 5
+        })
+        this.getWeather(); 
+    }
+
+    getWeather = async () => {
+
+        try {
+            const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/8a94adc7152ba66046780b53e6b95709/39.7392,-104.9903`);
+
+            if(response.status !== 200){
+                throw(Error(response.statusText));
+            }
+
+            const parsedWeather = await response.json();
+            console.log(parsedWeather, "<-- parsedWeather");
+            this.setState({
+                weather: {
+                    temp: parsedWeather.currently.temperature,
+                    currentSummary: parsedWeather.currently.summary,
+                    dailyOutlook: parsedWeather.daily.summary
+                }
             })
 
         } catch(err) {
@@ -134,6 +181,7 @@ class WorkoutContainer extends Component {
 
         return(
             <div className="workout-container flex-container">
+                <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>
                 <WorkoutList modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
             </div>
             
