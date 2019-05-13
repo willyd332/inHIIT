@@ -17,10 +17,12 @@ class WeatherForecast extends Component {
 
 
     render(){
-        console.log(this.state.zipCode);
+        //console.log(this.state.zipCode);
         return(
             <div>
-                <h1>Current Temp: {this.props.weatherData.temp}</h1>
+                <h1>{this.props.weatherData.city}</h1>
+                <h2>{this.props.weatherData.temp}°</h2>
+                <p>{this.props.weatherData.currentSummary}</p>
                 <form onSubmit={(e) => {
                     this.props.weatherSearch(e, this.state.zipCode)
                 }}>
@@ -36,6 +38,7 @@ export default WeatherForecast;
 
 
 // weather: {
+//     city: 'Denver',
 //     temp: null, // currently.temperature
 //     currentSummary: '', // currently.summary
 //     dailyOutlook: '' // daily.summary

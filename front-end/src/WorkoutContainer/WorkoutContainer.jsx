@@ -16,13 +16,14 @@ class WorkoutContainer extends Component {
             },
             modalShowing: false, 
             weather: {
+                city: 'Denver',
                 temp: null, // currently.temperature
                 currentSummary: '', // currently.summary
                 dailyOutlook: '' // daily.summary
 
             },
-            lat: null,
-            long: null
+            lat: 39.7392,
+            long: -104.9903
         }
     }
 
@@ -52,21 +53,37 @@ class WorkoutContainer extends Component {
     }
 
 
-    weatherSearch = (e, zipCode) => {
+    weatherSearch = async (e, zipCode) => {
         e.preventDefault();
         console.log(zipCode);
         
-        this.setState({
-            lat: 5,
-            long: 5
-        })
+        try{
+            const response = await fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?address="${zipCode}"&key=AIzaSyDVPLLlJAQ679Frd0gu11khJ9mW02wsvWQ`);
+            if(response.status !== 200){
+                throw(Error(response.statusText));
+            }
+
+            const parsedResponse = await response.json();
+            console.log(parsedResponse, "<-- parsed response zip data")
+
+            this.setState({
+                lat: parsedResponse.results[0].geometry.location.lat,
+                long: parsedResponse.results[0].geometry.location.lng,
+                city: parsedResponse.results[0].address_components[1].long_name
+            })
+
+        } catch(err){
+            console.log(err);
+        }
+
+        
         this.getWeather(); 
     }
 
     getWeather = async () => {
 
         try {
-            const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/8a94adc7152ba66046780b53e6b95709/39.7392,-104.9903`);
+            const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/8a94adc7152ba66046780b53e6b95709/${this.state.lat},${this.state.long}`);
 
             if(response.status !== 200){
                 throw(Error(response.statusText));
