@@ -20,7 +20,7 @@ class WeatherForecast extends Component {
         return(
             <div className='flex-container'>
                 <div className='weather-div'>                
-                    <h1>{this.props.weatherData.temp}°</h1>
+                    <h1 id="temp" >{this.props.weatherData.temp}°</h1>
                     <p>{this.props.weatherData.city}, {this.props.weatherData.currentSummary}</p>           
                     <form onSubmit={(e) => {
                         this.props.weatherSearch(e, this.state.zipCode)

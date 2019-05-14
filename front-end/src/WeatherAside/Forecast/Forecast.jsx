@@ -20,7 +20,7 @@ const Forecast = (props) => {
     
 
     const dailyForecast = props.forecast.map((day, i) => {
-        console.log(day)
+        //console.log(day)
         return(
             <div key={i + 'forecast'} className='forecast'>
                 <h4>{makeDate(day.unixTime)}</h4>

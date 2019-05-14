@@ -56,7 +56,7 @@ class App extends Component {
             const parsedWeather = await response.json();
             const forecastArray = [];
             parsedWeather.daily.data.forEach((day) => {
-                //console.log(day);
+                //console.log(parsedWeather.currently.icon);
                 forecastArray.push({
                     summary: day.summary,
                     precipProb: day.precipProbability,
@@ -67,19 +67,42 @@ class App extends Component {
                     
                 })
             })
+
+            
+
             this.setState({
                 weather: {
                     temp: parsedWeather.currently.temperature,
                     currentSummary: parsedWeather.currently.summary,
                     dailyOutlook: parsedWeather.daily.summary,
-                    city: this.state.city
+                    city: this.state.city,
+                    icon: parsedWeather.currently.icon
                 },
                 forecast: forecastArray
             })
+
+            this.setBackground();
+
         } catch(err) {
             console.log(err);
         }
     }
+
+    setBackground = () => {
+      //console.log(this.state.weather.icon, "in function")
+      const currentIcon = this.state.weather.icon;
+      const iconArr = ['clear-day', 'clear-night', 'rain', 'snow', 'sleet', 'wind', 'fog', 'cloudy', 'partly-cloudy-day', 'partly-cloudy-night'];
+
+      iconArr.forEach((icon) => {
+        if(icon === currentIcon){
+          document.getElementsByTagName("body")[0].setAttribute("class", icon);
+        }
+      })
+
+    }
+
+    
+    
 
     render(){
         return (

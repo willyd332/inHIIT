@@ -226,6 +226,7 @@ div.modal-header, div.modal-body, div.modal-footer {
 div.modal-header {
   border-top: 3px solid #b9b8b8;
   border-left: 3px solid #b9b8b8;
+  border-bottom: none;
   border-right: 3px solid #b9b8b8;
   border-radius: 0px;
 }
@@ -237,6 +238,22 @@ div.modal-body {
   border-bottom: none;
 }
 
+div.modal-footer {
+  border-bottom: 3px solid #b9b8b8;
+  border-right: 3px solid #b9b8b8;
+  border-left: 3px solid #b9b8b8;
+  border-top: none;
+  border-radius: 0px;
+  padding: 0px;
+}
+
+div.modal-body input {
+  background-color: #b9b8b8;
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
 button#cancel.btn.btn-secondary {
   background-color: rgba(0, 0, 0, 0.15);
 }
@@ -245,18 +262,11 @@ button#cancel.btn.btn-secondary:hover {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
-div.modal-body input {
-  background-color: #b9b8b8;
-  border: none;
-  border-radius: 3px;
+#temp {
+  color: #0070BA;
 }
 
-div.modal-footer {
-  border-bottom: 3px solid #b9b8b8;
-  border-right: 3px solid #b9b8b8;
-  border-left: 3px solid #b9b8b8;
-  border-radius: 0px;
-}
+
 
 @keyframes App-logo-spin {
   from {
