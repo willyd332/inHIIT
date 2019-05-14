@@ -41,7 +41,6 @@ class TimerApp extends Component {
                 })
             } else if(this.state.cycles % 2 === 0 && this.state.seconds === this.state.intervalEnd){
                 
-                
                 this.setState({
                     seconds: 0,
                     intervalEnd: this.props.workout.intervalTwo,
@@ -65,13 +64,23 @@ class TimerApp extends Component {
             interval: setInterval(this.secondsGoUp, 1000)
         })
     }
-    
-    
 
-    clear = () => {
+    pause = () => {
         console.log('clear function hit');
         clearInterval(this.state.interval);
     }
+
+    // reset = () => {
+    //     clearInterval(this.state.interval);
+    //     this.setState({
+    //         seconds: 0,
+    //         intervalEnd: 0,
+    //         cycles: 0,
+    //         interval: null,
+    //         whichInterval: 'Interval One',
+    //         victoryMessage: ""
+    //     })
+    // }
 
     render(){
         console.log(this.state, "state in timer component")
@@ -87,7 +96,7 @@ class TimerApp extends Component {
                     </div>
                     <div className="flex-container">
                         <button onClick={this.timer} className='start-button'>Start</button>
-                        <button onClick={this.clear} className='stop-button'>Pause</button>
+                        <button onClick={this.pause} className='stop-button'>Pause</button>
                     </div>
                 </div>
             </div>
@@ -99,4 +108,4 @@ class TimerApp extends Component {
 
 export default TimerApp;
 
-//<h2 className="victoryMessage">{this.state.victoryMessage}</h2>
+// <button onClick={this.reset} className='reset-button'>Reset</button>

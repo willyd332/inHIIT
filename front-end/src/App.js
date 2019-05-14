@@ -5,7 +5,7 @@ import WorkoutContainer from './WorkoutContainer/WorkoutContainer';
 
 function App() {
   return (
-    <div className="App flex-container">
+    <div id="app" className="App flex-container">
       <img className="logo" src={require('./images/inHIIT_logo.png')} alt="logo"></img>
       <WorkoutContainer/>
     </div>
