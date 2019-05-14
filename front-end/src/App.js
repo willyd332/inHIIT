@@ -12,16 +12,12 @@ class App extends Component {
         weather: {
             temp: null,
             currentSummary: '',
-            dailyOutlook: '',
-            
-        },
-        
+            dailyOutlook: '',            
+        },        
         forecast: null,
-
         lat: 39.7392,
         long: -104.9903,
-        city: 'Denver',
-        
+        city: 'Denver',        
       }
     }
 
@@ -29,31 +25,23 @@ class App extends Component {
       this.getWeather();
     }
 
-
     weatherSearch = async (e, zipCode) => {
-      e.preventDefault();
-      console.log(zipCode);
-      
+      e.preventDefault();      
       try{
           const response = await fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?address="${zipCode}"&key=AIzaSyDVPLLlJAQ679Frd0gu11khJ9mW02wsvWQ`);
           if(response.status !== 200){
               throw(Error(response.statusText));
           }
-
           const parsedResponse = await response.json();
-          console.log(parsedResponse, "<-- parsed response zip data")
 
           this.setState({
               lat: parsedResponse.results[0].geometry.location.lat,
               long: parsedResponse.results[0].geometry.location.lng,
               city: parsedResponse.results[0].address_components[1].long_name
           })
-
       } catch(err){
           console.log(err);
-      }
-
-      
+      }      
       this.getWeather(); 
   }
 
@@ -65,24 +53,20 @@ class App extends Component {
             if(response.status !== 200){
                 throw(Error(response.statusText));
             }
-
             const parsedWeather = await response.json();
-            //console.log(parsedWeather, "<-- parsedWeather");
-
             const forecastArray = [];
-
-            const forecastData = parsedWeather.daily.data.forEach((day) => {
+            parsedWeather.daily.data.forEach((day) => {
                 //console.log(day);
                 forecastArray.push({
                     summary: day.summary,
                     precipProb: day.precipProbability,
                     precipType: day.precipType,
                     tempHigh: day.temperatureHigh,
-                    tempLow: day.temperatureLow
+                    tempLow: day.temperatureLow,
+                    unixTime: day.time
+                    
                 })
             })
-            console.log(forecastArray, "<-- forecast Array"); 
-
             this.setState({
                 weather: {
                     temp: parsedWeather.currently.temperature,
@@ -92,37 +76,24 @@ class App extends Component {
                 },
                 forecast: forecastArray
             })
-            //this.props.setForcast(forecastArray);
         } catch(err) {
             console.log(err);
         }
 
     }
 
-    date = new Date();
-    
-
-
-
     render(){
-      
-      console.log(this.date.getTime())
-
         return (
           <div id="app" className="App flex-container">
             <img className="logo" src={require('./images/inHIIT_logo.png')} alt="logo"></img>
             <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>
-            <div className="main-flex-container">
-              
+            <div className="main-flex-container">             
               <div className="workout-container">
                 <WorkoutContainer setForcast={this.setForecast}/>
-              </div>
-            
+              </div>            
               <div className="aside-container">
                 {this.state.forecast ? <WeatherAside  forecast={this.state.forecast}/> : null}
-              </div>
-            
-            
+              </div>           
             </div>
           </div>
         )

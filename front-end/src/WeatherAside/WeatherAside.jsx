@@ -4,15 +4,9 @@ import Forecast from './Forecast/Forecast'
 class WeatherAside extends Component {
     constructor(){
         super();
-        this.state = {
-
-        }
     }
 
-    
-
     render(){
-        console.log(this.props.forecast, "<-- forecast in weatherAside")
         return(
             <div className='flex-container'>
                 <h1>8 Day Forecast</h1>

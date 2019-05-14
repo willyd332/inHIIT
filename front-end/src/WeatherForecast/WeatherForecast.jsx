@@ -17,23 +17,19 @@ class WeatherForecast extends Component {
 
 
     render(){
-        //console.log(this.state.zipCode);
+        
         return(
             <div className="flex-container">
-            <div className="weather-div">
-                <p>{this.props.weatherData.city}, {this.props.weatherData.currentSummary}</p>
-                <p>{this.props.weatherData.message}</p>
-                <h1>{this.props.weatherData.temp}°</h1>
-                
-            
-                <form onSubmit={(e) => {
-                    this.props.weatherSearch(e, this.state.zipCode)
-                }}>
-                <input onChange={this.updateState} type="text" name="zipCode" placeholder="zip code"/>
-                <button type="submit">Submit</button> 
-                </form>
-            </div>    
-                
+                <div className="weather-div">                
+                    <h1>{this.props.weatherData.temp}°</h1>
+                    <p>{this.props.weatherData.city}, {this.props.weatherData.currentSummary}</p>           
+                    <form onSubmit={(e) => {
+                        this.props.weatherSearch(e, this.state.zipCode)
+                    }}>
+                    <input onChange={this.updateState} type="text" name="zipCode" placeholder="zip code"/>
+                    <button type="submit">Submit</button> 
+                    </form>
+                </div>                    
             </div>
         )
     }
@@ -42,8 +38,3 @@ class WeatherForecast extends Component {
 export default WeatherForecast;
 
 
-// weather: {
-//     city: 'Denver',
-//     temp: null, // currently.temperature
-//     currentSummary: '', // currently.summary
-//     dailyOutlook: '' // daily.summary

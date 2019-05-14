@@ -10,9 +10,7 @@ class TimerApp extends Component {
             interval: null,
             whichInterval: 'Interval One',
             victoryMessage: ""
-        }
-        
-    
+        }    
     }
 
     componentDidMount = () => {
@@ -32,14 +30,11 @@ class TimerApp extends Component {
                     victoryMessage: "Crushed It!",
                     cycles: 199
                 })
-                
-
             }else if(this.state.seconds < this.state.intervalEnd){
                 this.setState({
                     seconds: this.state.seconds += 1
                 })
             } else if(this.state.cycles % 2 === 0 && this.state.seconds === this.state.intervalEnd){
-                
                 this.setState({
                     seconds: 0,
                     intervalEnd: this.props.workout.intervalTwo,
@@ -48,7 +43,6 @@ class TimerApp extends Component {
                     
                 })            
             } else if(this.state.cycles % 2 !== 0 && this.state.seconds === this.state.intervalEnd){
-                
                 this.setState({
                     seconds: 0,
                     intervalEnd: this.props.workout.intervalOne,
@@ -69,20 +63,7 @@ class TimerApp extends Component {
         clearInterval(this.state.interval);
     }
 
-    // reset = () => {
-    //     clearInterval(this.state.interval);
-    //     this.setState({
-    //         seconds: 0,
-    //         intervalEnd: 0,
-    //         cycles: 0,
-    //         interval: null,
-    //         whichInterval: 'Interval One',
-    //         victoryMessage: ""
-    //     })
-    // }
-
     render(){
-        //console.log(this.state, "state in timer component")
         return(
             <div className="flex-container">
                 <div>
@@ -90,7 +71,6 @@ class TimerApp extends Component {
                         <p>Cycle: {Math.floor(this.state.cycles / 2)  + 1}</p>
                         <p>{this.state.whichInterval}</p>
                         <h1>{this.state.seconds}</h1>
-                        
                         <img id={`image${this.props.index}`} className="hidden victoryImg" src={require('../../../images/crushed_it.png')} alt="name" />
                     </div>
                     <div className="flex-container">
@@ -103,8 +83,5 @@ class TimerApp extends Component {
     }
 }
 
-
-
 export default TimerApp;
 
-// <button onClick={this.reset} className='reset-button'>Reset</button>
