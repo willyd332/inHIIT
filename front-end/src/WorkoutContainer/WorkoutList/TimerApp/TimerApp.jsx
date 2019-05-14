@@ -25,7 +25,6 @@ class TimerApp extends Component {
 
     secondsGoUp = () => {
             if(this.state.cycles === (this.props.workout.cycles * 2)){
-                //document.getElementById('timer-div').appendChild(<div><img src={require('../../../images/crushed_it')} alt="victory"/></div>)
                 document.getElementById(`image${this.props.index}`).classList.toggle('hidden');
                 clearInterval(this.state.interval);
                 this.setState({
@@ -83,7 +82,7 @@ class TimerApp extends Component {
     // }
 
     render(){
-        console.log(this.state, "state in timer component")
+        //console.log(this.state, "state in timer component")
         return(
             <div className="flex-container">
                 <div>
@@ -92,7 +91,7 @@ class TimerApp extends Component {
                         <p>{this.state.whichInterval}</p>
                         <h1>{this.state.seconds}</h1>
                         
-                        <img id={`image${this.props.index}`} class="hidden victoryImg" src={require('../../../images/crushed_it.png')} alt="name" />
+                        <img id={`image${this.props.index}`} className="hidden victoryImg" src={require('../../../images/crushed_it.png')} alt="name" />
                     </div>
                     <div className="flex-container">
                         <button onClick={this.timer} className='start-button'>Start</button>

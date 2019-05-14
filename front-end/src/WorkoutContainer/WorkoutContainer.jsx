@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import WorkoutList from './WorkoutList/WorkoutList';
-import WeatherForecast from './WeatherForecast/WeatherForecast';
+import WeatherForecast from '../WeatherForecast/WeatherForecast';
 
 class WorkoutContainer extends Component {
     constructor(){
@@ -15,22 +15,13 @@ class WorkoutContainer extends Component {
                 cycles: 0
             },
             modalShowing: false, 
-            weather: {
-                temp: null,
-                currentSummary: '',
-                dailyOutlook: '',
-                
-            },
-            lat: 39.7392,
-            long: -104.9903,
-            city: 'Denver',
             
         }
     }
 
     componentDidMount(){
         this.getWorkouts();
-        this.getWeather();
+        // this.getWeather();
     }
 
     getWorkouts = async () => {
@@ -54,59 +45,74 @@ class WorkoutContainer extends Component {
     }
 
 
-    weatherSearch = async (e, zipCode) => {
-        e.preventDefault();
-        console.log(zipCode);
+    // weatherSearch = async (e, zipCode) => {
+    //     e.preventDefault();
+    //     console.log(zipCode);
         
-        try{
-            const response = await fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?address="${zipCode}"&key=AIzaSyDVPLLlJAQ679Frd0gu11khJ9mW02wsvWQ`);
-            if(response.status !== 200){
-                throw(Error(response.statusText));
-            }
+    //     try{
+    //         const response = await fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?address="${zipCode}"&key=AIzaSyDVPLLlJAQ679Frd0gu11khJ9mW02wsvWQ`);
+    //         if(response.status !== 200){
+    //             throw(Error(response.statusText));
+    //         }
 
-            const parsedResponse = await response.json();
-            console.log(parsedResponse, "<-- parsed response zip data")
+    //         const parsedResponse = await response.json();
+    //         console.log(parsedResponse, "<-- parsed response zip data")
 
-            this.setState({
-                lat: parsedResponse.results[0].geometry.location.lat,
-                long: parsedResponse.results[0].geometry.location.lng,
-                city: parsedResponse.results[0].address_components[1].long_name
-            })
+    //         this.setState({
+    //             lat: parsedResponse.results[0].geometry.location.lat,
+    //             long: parsedResponse.results[0].geometry.location.lng,
+    //             city: parsedResponse.results[0].address_components[1].long_name
+    //         })
 
-        } catch(err){
-            console.log(err);
-        }
+    //     } catch(err){
+    //         console.log(err);
+    //     }
 
         
-        this.getWeather(); 
-    }
+    //     this.getWeather(); 
+    // }
 
-    getWeather = async () => {
+    // getWeather = async () => {
 
-        try {
-            const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/8a94adc7152ba66046780b53e6b95709/${this.state.lat},${this.state.long}`);
+    //     try {
+    //         const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/8a94adc7152ba66046780b53e6b95709/${this.state.lat},${this.state.long}`);
 
-            if(response.status !== 200){
-                throw(Error(response.statusText));
-            }
+    //         if(response.status !== 200){
+    //             throw(Error(response.statusText));
+    //         }
 
-            const parsedWeather = await response.json();
-            console.log(parsedWeather, "<-- parsedWeather");
+    //         const parsedWeather = await response.json();
+    //         //console.log(parsedWeather, "<-- parsedWeather");
 
-            this.setState({
-                weather: {
-                    temp: parsedWeather.currently.temperature,
-                    currentSummary: parsedWeather.currently.summary,
-                    dailyOutlook: parsedWeather.daily.summary,
-                    city: this.state.city
-                }
-            })
+    //         const forecastArray = [];
 
-        } catch(err) {
-            console.log(err);
-        }
+    //         const forecastData = parsedWeather.daily.data.forEach((day) => {
+    //             //console.log(day);
+    //             forecastArray.push({
+    //                 summary: day.summary,
+    //                 precipProb: day.precipProbability,
+    //                 precipType: day.precipType,
+    //                 tempHigh: day.temperatureHigh,
+    //                 tempLow: day.temperatureLow
+    //             })
+    //         })
+    //         console.log(forecastArray, "<-- forecast Array"); 
 
-    }
+    //         this.setState({
+    //             weather: {
+    //                 temp: parsedWeather.currently.temperature,
+    //                 currentSummary: parsedWeather.currently.summary,
+    //                 dailyOutlook: parsedWeather.daily.summary,
+    //                 city: this.state.city
+    //             },
+    //             forecast: forecastArray
+    //         })
+    //         this.props.setForcast(forecastArray);
+    //     } catch(err) {
+    //         console.log(err);
+    //     }
+
+    // }
 
     createWorkout = async (formData, e) => {
         e.preventDefault();
@@ -200,8 +206,8 @@ class WorkoutContainer extends Component {
     render(){
 
         return(
-            <div className="workout-container flex-container">
-                <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>
+            <div className="flex-container">
+                
                 <WorkoutList modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
             </div>
             

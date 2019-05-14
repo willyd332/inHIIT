@@ -70,8 +70,21 @@ button.btn.btn-secondary {
   width: 100%;
 }
 
+.main-flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 .workout-container {
   margin: 25px;
+  width: 70%
+}
+
+.aside-container {
+  width: 30%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
 }
 
 div.workout-div {
@@ -197,6 +210,14 @@ div.weather-div button {
   bottom: 1px;
 }
 
+div.forecast {
+  background-color: rgba(0, 0, 0, 0.377);
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid white;
+  border-radius: 5px;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -207,3 +228,15 @@ div.weather-div button {
   }
 }
 
+@media only screen and (max-width: 800px) {
+  .main-flex-container {
+    flex-wrap: wrap;
+  }
+  .workout-container {
+    width: 100%;
+  }
+
+  .aside-container {
+    visibility: hidden;
+  }
+}
