@@ -44,7 +44,7 @@ class EditWorkout extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button type="submit" color="primary" onClick={this.toggle}>Let's Go!</Button>
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button color="secondary" id="cancel" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
           </form>
         </Modal>
