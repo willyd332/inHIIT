@@ -18,13 +18,13 @@ class WorkoutContainer extends Component {
             weather: {
                 temp: null,
                 currentSummary: '',
-                dailyOutlook: ''
+                dailyOutlook: '',
                 
-
             },
             lat: 39.7392,
             long: -104.9903,
-            city: 'Denver'
+            city: 'Denver',
+            
         }
     }
 
@@ -92,6 +92,7 @@ class WorkoutContainer extends Component {
 
             const parsedWeather = await response.json();
             console.log(parsedWeather, "<-- parsedWeather");
+
             this.setState({
                 weather: {
                     temp: parsedWeather.currently.temperature,

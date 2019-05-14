@@ -22,6 +22,7 @@ class WeatherForecast extends Component {
             <div className="flex-container">
             <div className="weather-div">
                 <p>{this.props.weatherData.city}, {this.props.weatherData.currentSummary}</p>
+                <p>{this.props.weatherData.message}</p>
                 <h1>{this.props.weatherData.temp}°</h1>
                 
             
