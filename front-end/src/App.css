@@ -38,6 +38,17 @@ div.hidden {
   height: 0px;
 }
 
+.hidden {
+  visibility: hidden;
+  height: 0px;
+}
+
+.victoryImg {
+  position: relative;
+  right: 150px;
+  bottom: 140px;
+}
+
 input {
   width: 100%;
 }

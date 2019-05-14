@@ -13,6 +13,7 @@ const WorkoutList = (props) => {
         document.getElementById(index).classList.toggle('start');
     }
 
+
     const workouts = props.workouts.map((workout, index)=> {
         return(
             <div className="workout-div flex-container" key={workout._id}>
@@ -27,7 +28,7 @@ const WorkoutList = (props) => {
                     <div>
                     <button onClick={toggleClass.bind(null, index)}>Let's Go!</button>
                     <div id={index} className="hidden">
-                        <TimerApp workout={workout}/>
+                        <TimerApp index={index} workout={workout}/>
                     </div>
                     
                     </div>
