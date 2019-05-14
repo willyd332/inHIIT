@@ -31,8 +31,9 @@ class TimerApp extends Component {
                     cycles: 199
                 })
             }else if(this.state.seconds < this.state.intervalEnd){
+                const newSeconds = this.state.seconds + 1;
                 this.setState({
-                    seconds: this.state.seconds += 1
+                    seconds: newSeconds
                 })
             } else if(this.state.cycles % 2 === 0 && this.state.seconds === this.state.intervalEnd){
                 this.setState({
@@ -65,7 +66,7 @@ class TimerApp extends Component {
 
     render(){
         return(
-            <div className="flex-container">
+            <div className="flex-container" id={this.props.timerID}>
                 <div>
                     <div id="timer-div" className='timer'>
                         <p>Cycle: {Math.floor(this.state.cycles / 2)  + 1}</p>

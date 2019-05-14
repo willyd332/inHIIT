@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import Forecast from './Forecast/Forecast'
 
 class WeatherAside extends Component {
-    constructor(){
-        super();
-    }
+    
 
     render(){
         return(

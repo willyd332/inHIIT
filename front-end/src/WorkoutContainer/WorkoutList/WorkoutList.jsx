@@ -11,6 +11,7 @@ const WorkoutList = (props) => {
         console.log('hit toggle function');
         document.getElementById(index).classList.toggle('hidden');
         document.getElementById(index).classList.toggle('start');
+        document.getElementById(`timer${index}`).classList.toggle('drop-animation');
     }
 
 
@@ -28,7 +29,7 @@ const WorkoutList = (props) => {
                     <div>
                     <button onClick={toggleClass.bind(null, index)}>Let's Go!</button>
                     <div id={index} className="hidden">
-                        <TimerApp index={index} workout={workout}/>
+                        <TimerApp index={index} timerID={`timer${index}`} workout={workout}/>
                     </div>
                     
                     </div>

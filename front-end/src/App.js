@@ -4,7 +4,6 @@ import WorkoutContainer from './WorkoutContainer/WorkoutContainer';
 import WeatherAside from './WeatherAside/WeatherAside';
 import WeatherForecast from './WeatherForecast/WeatherForecast';
 
-
 class App extends Component {
     constructor(){
       super();
@@ -89,7 +88,6 @@ class App extends Component {
     }
 
     setBackground = () => {
-      //console.log(this.state.weather.icon, "in function")
       const currentIcon = this.state.weather.icon;
       const iconArr = ['clear-day', 'clear-night', 'rain', 'snow', 'sleet', 'wind', 'fog', 'cloudy', 'partly-cloudy-day', 'partly-cloudy-night'];
 
@@ -98,11 +96,8 @@ class App extends Component {
           document.getElementsByTagName("body")[0].setAttribute("class", icon);
         }
       })
-
     }
 
-    
-    
 
     render(){
         return (
