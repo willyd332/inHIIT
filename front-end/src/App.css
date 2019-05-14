@@ -153,6 +153,10 @@ div.timer h1 {
   font-size: 100px;
 }
 
+.weather-title {
+  color: #0070BA;
+}
+
 div.timer p {
   position: relative;
   top: 5px;

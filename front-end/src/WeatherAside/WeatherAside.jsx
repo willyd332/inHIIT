@@ -7,7 +7,7 @@ class WeatherAside extends Component {
     render(){
         return(
             <div className='flex-container'>
-                <h1>8 Day Forecast</h1>
+                <h1 className="weather-title">8 Day Forecast</h1>
                 {this.props.forecast? <Forecast forecast={this.props.forecast}/> : null}
             </div>
         )
