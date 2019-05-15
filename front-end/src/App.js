@@ -67,8 +67,6 @@ class App extends Component {
                 })
             })
 
-            
-
             this.setState({
                 weather: {
                     temp: parsedWeather.currently.temperature,
@@ -102,8 +100,15 @@ class App extends Component {
     render(){
         return (
           <div id="app" className="App flex-container">
-            <img className="logo" src={require('./images/inHIIT_logo.png')} alt="logo"></img>
-            <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>
+            <div className='logo-div'>
+            <div>
+              <img className='logo' src={require('./images/inHIIT_logo.png')} alt="logo"></img>
+            </div>
+              
+              <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>
+            </div>
+            
+            
             <div className="main-flex-container">             
               <div className="workout-container">
                 <WorkoutContainer setForcast={this.setForecast}/>

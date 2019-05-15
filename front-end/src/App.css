@@ -4,10 +4,11 @@
   min-width: 375px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+div.logo-div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 20%,rgba(255,255,255,0.77) 50%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
 }
 
 .App-header {
@@ -27,7 +28,9 @@
 
 img.logo {
   max-height: 120px;
-  margin-top: 30px
+  margin: 30px;
+  
+  
 }
 
 div.start {
@@ -84,12 +87,13 @@ button.btn.btn-secondary {
 
 .workout-container {
   margin: 25px;
-  width: 70%
+  width: 65%
 }
 
 .aside-container {
   width: 30%;
-  margin-top: 40px;
+  margin-top: 37px;
+  margin-right: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -153,8 +157,19 @@ div.timer h1 {
   font-size: 100px;
 }
 
-.weather-title {
+h1.weather-title {
   color: #0070BA;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 2px solid white;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
+}
+
+p.weather-title {
+  color: black;
+  margin-top: 30px;
+  margin-bottom: 0px;
 }
 
 div.timer p {
@@ -275,8 +290,19 @@ button#cancel.btn.btn-secondary:hover {
 
 #temp {
   color: #0070BA;
+  font-size: 55px;
+  margin-top: 20px;
 }
 
+div.forecast p {
+  margin-bottom: 5px;
+}
+
+div.forecast h4 {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.295);
+}
 
 
 @keyframes divTranstion {
@@ -298,5 +324,10 @@ button#cancel.btn.btn-secondary:hover {
 
   .aside-container {
     visibility: hidden;
+  }
+  div#forecast {
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
   }
 }

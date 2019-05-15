@@ -47,7 +47,7 @@ class NewWorkout extends Component {
           </ModalBody>
           <ModalFooter>
             <Button type="submit" color="primary" onClick={this.toggle}>Submit</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button color="secondary" id="cancel" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
           </form>
         </Modal>

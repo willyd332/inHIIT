@@ -19,26 +19,25 @@ const WorkoutList = (props) => {
         return(
             <div className="workout-div flex-container" key={workout._id}>
                     <div>
-                    <h2>{workout.name}</h2>
+                        <h2>{workout.name}</h2>
                     </div>
                     <div>
-                    <p>Interval One: {workout.intervalOne}</p>
-                    <p>Interval Two: {workout.intervalTwo}</p>
-                    <p>Cycles: {workout.cycles}</p>
+                        <p>Interval One: {workout.intervalOne}</p>
+                        <p>Interval Two: {workout.intervalTwo}</p>
+                        <p>Cycles: {workout.cycles}</p>
                     </div>
                     <div>
-                    <button onClick={toggleClass.bind(null, index)}>Let's Go!</button>
-                    <div id={index} className="hidden">
-                        <TimerApp index={index} timerID={`timer${index}`} workout={workout}/>
-                    </div>
+                        <button onClick={toggleClass.bind(null, index)}>Let's Go!</button>
+                        <div id={index} className="hidden">
+                            <TimerApp index={index} timerID={`timer${index}`} workout={workout}/>
+                        </div>
                     
                     </div>
                     
                     <EditWorkout workout={workout} modalShows={props.modalShows} editWorkout={props.editWorkout} handleFormChange={props.handleFormChange}></EditWorkout>
                     <button className="delete" onClick={() =>{
                         props.deleteWorkout(workout._id)
-                    }}>Delete</button>
-                
+                    }}>Delete</button>                
             </div>
         )
     });
