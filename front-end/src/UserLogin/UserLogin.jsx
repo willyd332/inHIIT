@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 
 class UserLogin extends Component {
     constructor(){
         super();
         this.state = {
-            userName: '',
-            userPassword: '',
+            user: {
+                userName: '',
+                userPassword: '',
+                isLogged: false
+            },
+            
             modal: false
         }
         this.toggle = this.toggle.bind(this);
@@ -19,13 +23,35 @@ class UserLogin extends Component {
         })
     }
 
-    handleSubmit = (e) => {
+    createUser = async (formData, e) => {
         e.preventDefault();
-        console.log('handle submit function');
+        console.log(formData);
 
+        try {
+            const createdUser = await fetch('http://localhost:9000/users', {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
 
+            const parsedResponse = await createdUser.json();
+            console.log(parsedResponse, "parsed response");
+            this.setState({
+                isLogged: true
+            })
 
-        
+        } catch(err) {
+            console.log(err)
+        }
+    
+    }
+
+    loginUser = (e) => {
+        e.preventDefault();
+        console.log('loginUser function');
+    
     }
     
     toggle() {
@@ -43,28 +69,28 @@ class UserLogin extends Component {
             <Button className="newButton loginModalButton" onClick={this.toggle}>{this.props.buttonLabel}</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
             <ModalHeader toggle={this.toggle}>Login / Register</ModalHeader>
-            <form onSubmit={this.handleSubmit}>
+            
             <ModalBody>
-                
+                <form onSubmit={this.createUser.bind(null, this.state)}>
                     <div>
                         <p>Register New User</p>
                         Name: <input onChange={this.updateState} type="text" name="userName"/><br/>
-                        Password: <input onChange={this.updateState} type="password" name="userName"/><br/>                    
+                        Password: <input onChange={this.updateState} type="password" name="userPassword"/><br/>
+                        <button type="submit">Submit</button>
                     </div>
+                </form>
+                <form onSubmit={this.loginUser}>
                     <div>
                         <p>Login Existing User</p>
                         Name: <input onChange={this.updateState} type="text" name="userName"/><br/>
-                        Password: <input onChange={this.updateState} type="password" name="userPassword"/><br/>                    
+                        Password: <input onChange={this.updateState} type="password" name="userPassword"/><br/> 
+                        <button type="submit">Submit</button>                   
                     </div>
-                        
+                </form>
                     
 
             </ModalBody>
-            <ModalFooter>
-                <Button type="submit" color="primary" onClick={this.toggle}>Submit</Button>{' '}
-                <Button color="secondary" id="cancel" onClick={this.toggle}>Cancel</Button>
-            </ModalFooter>
-            </form>
+
             </Modal>
         </div>
         );
