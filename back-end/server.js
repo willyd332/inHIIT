@@ -40,17 +40,19 @@ app.use(session({
 const workoutController = require('./controllers/WorkoutController');
 const userController = require('./controllers/UserController');
 
+// check if this is doing anything - dont think it is...
+// app.use((req, res, next) => {
+//     if(req.session.usersDbId){
+//         res.locals.userId = req.session.usersDbId
+//     }
+//     next();
+// })
+
 app.use('/workouts', workoutController);
 app.use('/users', userController);
 
 
-// check if this is doing anything - dont think it is...
-app.use((req, res, next) => {
-    if(req.session.usersDbId){
-        res.locals.userId = req.session.usersDbId
-    }
-    next();
-})
+
 
 
 

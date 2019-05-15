@@ -51,6 +51,7 @@ class WorkoutContainer extends Component {
         try {
             const createdWorkout = await fetch('http://localhost:9000/workouts', {
                 method: 'POST',
+                credentials: 'include',
                 body: JSON.stringify(formData),
                 headers: {
                     'Content-Type': 'application/json'
@@ -70,6 +71,7 @@ class WorkoutContainer extends Component {
         try{
             const deleteWorkout = await fetch(`http://localhost:9000/workouts/${deletedWorkoutID}`, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -91,27 +93,13 @@ class WorkoutContainer extends Component {
 
     };
 
-    handleFormChange = (e) => {
-        this.setState({
-            workoutToEdit: {
-                ...this.state.workoutToEdit, 
-                [e.target.name]: e.target.value
-            }
-        })
-    }
-
-    modalShows = (thisOne) => {
-        this.setState({
-            workoutToEdit: thisOne
-        })
-    }
-
     editWorkout = async (e) => {
         e.preventDefault();
         console.log(this.state.workoutToEdit._id)
         try {
             const updateWorkout = await fetch('http://localhost:9000/workouts/' + this.state.workoutToEdit._id, {
                 method: 'PUT',
+                credentials: 'include',
                 body: JSON.stringify(this.state.workoutToEdit),
                 headers: {
                     'Content-Type': 'application/json'
@@ -133,7 +121,24 @@ class WorkoutContainer extends Component {
         } catch(err) {
             console.log(err)
         }        
+    };
+
+    handleFormChange = (e) => {
+        this.setState({
+            workoutToEdit: {
+                ...this.state.workoutToEdit, 
+                [e.target.name]: e.target.value
+            }
+        })
     }
+
+    modalShows = (thisOne) => {
+        this.setState({
+            workoutToEdit: thisOne
+        })
+    }
+
+
 
     render(){
 

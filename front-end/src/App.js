@@ -17,7 +17,9 @@ class App extends Component {
         forecast: null,
         lat: 39.7392,
         long: -104.9903,
-        city: 'Denver',        
+        city: 'Denver',  
+        isLogged: false,
+        loggedUser: ''      
       }
     }
 
@@ -97,6 +99,86 @@ class App extends Component {
       })
     }
 
+    createUser = async (formData, e) => {
+      e.preventDefault();
+
+
+      try {
+          const createdUser = await fetch('http://localhost:9000/users/register', {
+              method: 'POST',
+              credentials: 'include',
+              body: JSON.stringify(formData),
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          });
+
+          const parsedResponse = await createdUser.json();
+          console.log(parsedResponse, "parsed response");
+
+            if(parsedResponse.data !== 'User name not available'){
+              this.setState({
+                isLogged: true,
+                loggedUser: parsedResponse.data.user
+            })
+          }
+
+      } catch(err) {
+          console.log(err)
+      }
+  
+  }
+
+  loginUser = async (formData, e) => {
+      e.preventDefault();
+      console.log('loginUser function');
+
+      try {
+        const loginUser = await fetch('http://localhost:9000/users/login', {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(formData),
+        headers: {
+            'Content-Type': 'application/json',
+        }
+        })
+
+        const parsedResponse = await loginUser.json();
+        console.log(parsedResponse.data.msg, 'this is parsedResponse'); 
+
+        if(parsedResponse.data.msg === 'login successful'){
+          this.setState({
+            isLogged: true,
+            loggedUser: parsedResponse.data.user
+          })
+        }
+
+      } catch(err) {
+        console.log(err);
+      }
+
+  }
+
+  logoutUser = async () => {
+    console.log('logout function');
+    
+    try {
+      const logoutUser = await fetch('http://localhost:9000/users/logout', {
+        method: 'GET',
+        credentials: 'include'
+      })
+
+      const parsedResponse = await logoutUser.json();
+      console.log(parsedResponse, 'this is parsed response')
+
+      this.setState({
+        isLogged: false
+      })
+    } catch(err) {
+        console.log(err);
+    }
+
+  }
 
     render(){
         return (
@@ -105,13 +187,18 @@ class App extends Component {
             <div>
               <img className='logo' src={require('./images/inHIIT_logo.png')} alt="logo"></img>
             </div>
-              
-              <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>
-              
+              <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>              
             </div>
-            <UserLogin buttonLabel={'Login/Register'}/>
-            <button className="newButton loginModalButton">Logout</button>
+            {this.state.isLogged ? <p>Welcome, {this.state.loggedUser}! </p> : null}
+            {this.state.isLogged ? <button onClick={this.logoutUser} className="newButton loginModalButton">Logout</button>
+            :
+            <UserLogin createUser={this.createUser} loginUser={this.loginUser} buttonLabel={'Login/Register'}/>}
+
             
+            
+            
+
+
             <div className="main-flex-container">             
               <div className="workout-container">
                 <WorkoutContainer setForcast={this.setForecast}/>

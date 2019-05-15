@@ -5,11 +5,9 @@ class UserLogin extends Component {
     constructor(){
         super();
         this.state = {
-            user: {
-                userName: '',
-                userPassword: '',
-                isLogged: false
-            },
+            
+            userName: '',
+            userPassword: '',
             
             modal: false
         }
@@ -23,36 +21,6 @@ class UserLogin extends Component {
         })
     }
 
-    createUser = async (formData, e) => {
-        e.preventDefault();
-        console.log(formData);
-
-        try {
-            const createdUser = await fetch('http://localhost:9000/users', {
-                method: 'POST',
-                body: JSON.stringify(formData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const parsedResponse = await createdUser.json();
-            console.log(parsedResponse, "parsed response");
-            this.setState({
-                isLogged: true
-            })
-
-        } catch(err) {
-            console.log(err)
-        }
-    
-    }
-
-    loginUser = (e) => {
-        e.preventDefault();
-        console.log('loginUser function');
-    
-    }
     
     toggle() {
         this.setState(prevState => ({
@@ -61,7 +29,6 @@ class UserLogin extends Component {
     }
 
     render() {
-        console.log(this.state, "state");
         
 
         return (
@@ -71,20 +38,20 @@ class UserLogin extends Component {
             <ModalHeader toggle={this.toggle}>Login / Register</ModalHeader>
             
             <ModalBody>
-                <form onSubmit={this.createUser.bind(null, this.state)}>
+                <form onSubmit={this.props.createUser.bind(null, this.state)}>
                     <div>
                         <p>Register New User</p>
                         Name: <input onChange={this.updateState} type="text" name="userName"/><br/>
                         Password: <input onChange={this.updateState} type="password" name="userPassword"/><br/>
-                        <button type="submit">Submit</button>
+                        <button onClick={this.toggle} type="submit">Submit</button>
                     </div>
                 </form>
-                <form onSubmit={this.loginUser}>
+                <form onSubmit={this.props.loginUser.bind(null, this.state)}>
                     <div>
                         <p>Login Existing User</p>
                         Name: <input onChange={this.updateState} type="text" name="userName"/><br/>
                         Password: <input onChange={this.updateState} type="password" name="userPassword"/><br/> 
-                        <button type="submit">Submit</button>                   
+                        <button onClick={this.toggle} type="submit">Submit</button>                   
                     </div>
                 </form>
                     

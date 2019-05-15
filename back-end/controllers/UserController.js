@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/UserModel');
 const Workout = require('../models/WorkoutModel');
+const bcrypt = require('bcryptjs');
 
 // GET ALL ROUTE
 router.get('/', async (req, res, next) => {
@@ -21,21 +22,110 @@ router.get('/', async (req, res, next) => {
 });
 
 //CREATE NEW ROUTE
-router.post('/', async (req, res) => {
-    console.log('hit post route');
+router.post('/register', async (req, res) => {
     try {
-      console.log(req.body, ' this is req.body in create route');
-      const createdUser = await User.create(req.body);
-      console.log('response happening?')
-      res.json({
-        status: 200,
-        data: createdUser
-      });
+      const password = req.body.userPassword;
+      const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+      const userDbEntry = {};
+      userDbEntry.userName = req.body.userName;
+      userDbEntry.userPassword = passwordHash;
+      
+      try{
+        const foundUser = await User.findOne({'userName' : userDbEntry.userName});
+        console.log(foundUser);
+        if(foundUser){
+            console.log('USER NOT AVAILABLE');
+            res.json({
+                status: 200,
+                data: 'User name not available'
+            })
+        } else {
+            console.log('Im in here');
+            const createdUser = await User.create(userDbEntry);
+            req.session.logged = true;
+            req.session.usersDbId = createdUser._id;
+            req.session.username = createdUser.userName
+            
+            res.json({
+                status: 200,
+                data: {
+                    msg: `login successful for ${createdUser.userName}`,
+                    user: req.session.username
+                }
+            });
+        }        
+      } catch(err) {
+          console.log(err);
+      }
   
     } catch(err){
       console.log(err);
     }
   });
+
+
+//LOGOUT USER 
+router.get('/logout', async (req, res) => {
+    console.log(req.session);
+    req.session.destroy((err) => {
+        if(err){
+            console.log(err)
+        }
+    })
+
+    try {
+        res.json({
+            status: 200,
+            data: 'logged user out'
+        })
+    } catch(err) {
+        console.log(err);
+    }
+    console.log('successful logout');
+})
+
+
+//LOGIN USER
+router.post('/login', async (req, res) => {
+    console.log(req.body, 'req.body on 87');
+    try {
+        const foundUser = await User.findOne({
+            'userName': req.body.userName
+        });
+
+        if(foundUser){
+            if(bcrypt.compareSync(req.body.userPassword, foundUser.userPassword)){
+                req.session.logged = true;
+                req.session.usersDbId = foundUser._id;
+                req.session.username = foundUser.userName;
+
+                res.json({
+                    status: 200,
+                    data: {
+                        msg: `login successful`,
+                        user: req.session.username
+                    }
+                });
+                
+              } else {
+                res.json({
+                    status: 200,
+                    data: 'username or password is incorrect'
+                });
+              }
+            } else {
+                res.json({
+                    status: 200,
+                    data: 'username or password is incorrect'
+                });
+            }
+        
+    }catch(err) {
+        console.log(err);
+    }
+
+})
+  
 
 
 //DELETE ROUTE
