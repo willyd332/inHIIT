@@ -36,18 +36,20 @@ class TimerApp extends Component {
                     seconds: newSeconds
                 })
             } else if(this.state.cycles % 2 === 0 && this.state.seconds === this.state.intervalEnd){
+                const newCycles = this.state.cycles + 1;
                 this.setState({
                     seconds: 0,
                     intervalEnd: this.props.workout.intervalTwo,
-                    cycles: this.state.cycles += 1,
+                    cycles: newCycles,
                     whichInterval: 'Interval Two'
                     
                 })            
             } else if(this.state.cycles % 2 !== 0 && this.state.seconds === this.state.intervalEnd){
+                const newCycles = this.state.cycles + 1;
                 this.setState({
                     seconds: 0,
                     intervalEnd: this.props.workout.intervalOne,
-                    cycles: this.state.cycles += 1,
+                    cycles: newCycles,
                     whichInterval: 'Interval One'
                 })
             }        
@@ -60,7 +62,6 @@ class TimerApp extends Component {
     }
 
     pause = () => {
-        console.log('clear function hit');
         clearInterval(this.state.interval);
     }
 

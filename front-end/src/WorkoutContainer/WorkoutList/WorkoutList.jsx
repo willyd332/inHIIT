@@ -8,7 +8,6 @@ import TimerApp from './TimerApp/TimerApp';
 const WorkoutList = (props) => {
     
     const toggleClass = (index) => {
-        console.log('hit toggle function');
         document.getElementById(index).classList.toggle('hidden');
         document.getElementById(index).classList.toggle('start');
         document.getElementById(`timer${index}`).classList.toggle('drop-animation');

@@ -163,7 +163,7 @@ h1.weather-title {
   border: 2px solid white;
   border-radius: 5px;
   margin: 10px;
-  padding: 5px;
+  padding:5px;
 }
 
 p.weather-title {
@@ -175,6 +175,12 @@ p.weather-title {
 div.timer p {
   position: relative;
   top: 5px;
+}
+
+button.loginModalButton {
+  height: 50px;
+  width: 150px;
+  
 }
 
 button.start-button {

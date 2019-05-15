@@ -3,6 +3,7 @@ import './App.css';
 import WorkoutContainer from './WorkoutContainer/WorkoutContainer';
 import WeatherAside from './WeatherAside/WeatherAside';
 import WeatherForecast from './WeatherForecast/WeatherForecast';
+import UserLogin from './UserLogin/UserLogin';
 
 class App extends Component {
     constructor(){
@@ -106,8 +107,10 @@ class App extends Component {
             </div>
               
               <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>
+              
             </div>
-            
+            <UserLogin buttonLabel={'Login/Register'}/>
+            <button className="newButton loginModalButton">Logout</button>
             
             <div className="main-flex-container">             
               <div className="workout-container">
