@@ -25,6 +25,7 @@ class App extends Component {
         isLogged: false,
         loggedUser: '',
         loggedUserId: '',
+        logFailMsg: '',
         
         workouts: [],
         workoutToEdit: {
@@ -136,7 +137,11 @@ class App extends Component {
               this.setState({
                 isLogged: true,
                 loggedUser: parsedResponse.data.user,
-                loggedUserId: parsedResponse.data.usersDbId
+                loggedUserId: parsedResponse.data.usersDbId,
+            })
+          } else {
+            this.setState({
+              logFailMsg: 'User name not available'
             })
           }
 
@@ -167,11 +172,17 @@ class App extends Component {
           this.setState({
             isLogged: true,
             loggedUser: parsedResponse.data.user,
-            loggedUserId: parsedResponse.data.usersDbId
+            loggedUserId: parsedResponse.data.usersDbId,
+            logFailMsg: '',
+          })
+          this.getWorkouts();
+        } else {
+          this.setState({
+            logFailMsg: 'Username or Password Incorrect'
           })
         }
 
-        this.getWorkouts();
+        
 
       } catch(err) {
         console.log(err);
@@ -236,97 +247,97 @@ class App extends Component {
 
 }
 
-createWorkout = async (formData, e) => {
-  e.preventDefault();
-  try {
-      const createdWorkout = await fetch('http://localhost:9000/workouts', {
-          method: 'POST',
-          credentials: 'include',
-          body: JSON.stringify(formData),
-          headers: {
-              'Content-Type': 'application/json'
-          }
-      });
+  createWorkout = async (formData, e) => {
+    e.preventDefault();
+    try {
+        const createdWorkout = await fetch('http://localhost:9000/workouts', {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(formData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
-      const parsedResponse = await createdWorkout.json();
-      this.setState({workouts: [...this.state.workouts, parsedResponse.data]})
+        const parsedResponse = await createdWorkout.json();
+        this.setState({workouts: [...this.state.workouts, parsedResponse.data]})
 
-  } catch(err) {
-      console.log(err)
-  }
-}
-
-deleteWorkout = async (deletedWorkoutID) => {
-  console.log(deletedWorkoutID, 'hit delete function');
-  try{
-      const deleteWorkout = await fetch(`http://localhost:9000/workouts/${deletedWorkoutID}`, {
-          method: 'DELETE',
-          credentials: 'include',
-          headers: {
-              'Content-Type': 'application/json'
-          }
-      });
-
-      const parsedResponse = await deleteWorkout.json();
-      console.log(parsedResponse, 'parsed response');
-      console.log(deletedWorkoutID, "deletedWorkoutID from before")
-      if(parsedResponse.status === 200){
-          this.setState({
-              workouts: this.state.workouts.filter(workout => workout._id !== deletedWorkoutID)
-          })
-      }
-
-
-  } catch(err) {
-      console.log(err);
+    } catch(err) {
+        console.log(err)
+    }
   }
 
-};
+  deleteWorkout = async (deletedWorkoutID) => {
+    console.log(deletedWorkoutID, 'hit delete function');
+    try{
+        const deleteWorkout = await fetch(`http://localhost:9000/workouts/${deletedWorkoutID}`, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
-editWorkout = async (e) => {
-  e.preventDefault();
-  console.log(this.state.workoutToEdit._id)
-  try {
-      const updateWorkout = await fetch('http://localhost:9000/workouts/' + this.state.workoutToEdit._id, {
-          method: 'PUT',
-          credentials: 'include',
-          body: JSON.stringify(this.state.workoutToEdit),
-          headers: {
-              'Content-Type': 'application/json'
-          }
-      })
+        const parsedResponse = await deleteWorkout.json();
+        console.log(parsedResponse, 'parsed response');
+        console.log(deletedWorkoutID, "deletedWorkoutID from before")
+        if(parsedResponse.status === 200){
+            this.setState({
+                workouts: this.state.workouts.filter(workout => workout._id !== deletedWorkoutID)
+            })
+        }
 
-      const parsedResponse = await updateWorkout.json();
-      const editedWorkoutArr = this.state.workouts.map((workout) => {
-          if(workout._id === this.state.workoutToEdit._id){
-              workout = parsedResponse.data
-          }
-          return workout
-      });
 
-      this.setState({
-          workouts: editedWorkoutArr,
-      });
+    } catch(err) {
+        console.log(err);
+    }
 
-  } catch(err) {
-      console.log(err)
-  }        
-};
+  };
 
-handleFormChange = (e) => {
-  this.setState({
-      workoutToEdit: {
-          ...this.state.workoutToEdit, 
-          [e.target.name]: e.target.value
-      }
-  })
-}
+  editWorkout = async (e) => {
+    e.preventDefault();
+    console.log(this.state.workoutToEdit._id)
+    try {
+        const updateWorkout = await fetch('http://localhost:9000/workouts/' + this.state.workoutToEdit._id, {
+            method: 'PUT',
+            credentials: 'include',
+            body: JSON.stringify(this.state.workoutToEdit),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
 
-modalShows = (thisOne) => {
-  this.setState({
-      workoutToEdit: thisOne
-  })
-}
+        const parsedResponse = await updateWorkout.json();
+        const editedWorkoutArr = this.state.workouts.map((workout) => {
+            if(workout._id === this.state.workoutToEdit._id){
+                workout = parsedResponse.data
+            }
+            return workout
+        });
+
+        this.setState({
+            workouts: editedWorkoutArr,
+        });
+
+    } catch(err) {
+        console.log(err)
+    }        
+  };
+
+  handleFormChange = (e) => {
+    this.setState({
+        workoutToEdit: {
+            ...this.state.workoutToEdit, 
+            [e.target.name]: e.target.value
+        }
+    })
+  }
+
+  modalShows = (thisOne) => {
+    this.setState({
+        workoutToEdit: thisOne
+    })
+  }
 
 
 
@@ -348,6 +359,7 @@ modalShows = (thisOne) => {
               </div>            
               <div className="aside-container">
               <div>
+                <p className='failure'>{this.state.logFailMsg}</p>
                 {this.state.isLogged ? <p className='login'>Welcome, {this.state.loggedUser}! </p> : null}
                 {this.state.isLogged ? <button onClick={this.logoutUser} className="newButton loginModalButton">Logout</button>
                 :

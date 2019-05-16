@@ -43,7 +43,7 @@ class UserLogin extends Component {
                         <p>Register New User</p>
                         Name: <input onChange={this.updateState} type="text" name="userName"/><br/>
                         Password: <input onChange={this.updateState} type="password" name="userPassword"/><br/>
-                        <button onClick={this.toggle} type="submit">Submit</button>
+                        <button id="loginSubmit" onClick={this.toggle} type="submit">Submit</button>
                     </div>
                 </form>
                 <form onSubmit={this.props.loginUser.bind(null, this.state)}>
@@ -51,7 +51,7 @@ class UserLogin extends Component {
                         <p>Login Existing User</p>
                         Name: <input onChange={this.updateState} type="text" name="userName"/><br/>
                         Password: <input onChange={this.updateState} type="password" name="userPassword"/><br/> 
-                        <button onClick={this.toggle} type="submit">Submit</button>                   
+                        <button id="loginCancel"onClick={this.toggle} type="submit">Submit</button>                   
                     </div>
                 </form>
                     

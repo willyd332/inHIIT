@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
   color: white;
@@ -261,27 +262,27 @@ div.modal-header, div.modal-body, div.modal-footer {
 }
 
 div.modal-header {
-  border-top: 3px solid #b9b8b8;
-  border-left: 3px solid #b9b8b8;
+  
   border-bottom: none;
-  border-right: 3px solid #b9b8b8;
+  
   border-radius: 0px;
 }
 
 div.modal-body {
-  border-right: 3px solid #b9b8b8;
-  border-left: 3px solid #b9b8b8;
+  
   border-top: none;
   border-bottom: none;
 }
 
 div.modal-footer {
-  border-bottom: 3px solid #b9b8b8;
-  border-right: 3px solid #b9b8b8;
-  border-left: 3px solid #b9b8b8;
+  
   border-top: none;
   border-radius: 0px;
   padding: 0px;
+}
+
+div.modal-content {
+  border: 3px solid #b9b8b8;
 }
 
 div.modal-body input {
@@ -315,6 +316,32 @@ div.forecast h4 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.295);
 }
 
+p.failure {
+  color: red;
+}
+
+button#loginSubmit {
+  background-color: #007BFF;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+button#loginSubmit:hover {
+  background-color: rgb(5, 99, 199);
+}
+
+button#loginCancel {
+  background-color: #5C666C;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+
+button#loginCancel:hover {
+  background-color: rgb(65, 72, 77);
+}
 
 @keyframes divTranstion {
   0%{

@@ -65,6 +65,12 @@ class TimerApp extends Component {
         clearInterval(this.state.interval);
     }
 
+    randomImage = () => {
+        const imageArr = ['../../images/crushed_it.png'];
+        return imageArr[Math.floor(Math.random() * imageArr.length)];
+        
+    }
+
     render(){
         return(
             <div className="flex-container" id={this.props.timerID}>
