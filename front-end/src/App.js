@@ -339,16 +339,21 @@ modalShows = (thisOne) => {
             </div>
               <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>              
             </div>
-            {this.state.isLogged ? <p>Welcome, {this.state.loggedUser}! </p> : null}
-            {this.state.isLogged ? <button onClick={this.logoutUser} className="newButton loginModalButton">Logout</button>
-            :
-            <UserLogin createUser={this.createUser} loginUser={this.loginUser} buttonLabel={'Login/Register'}/>}
+
+            
 
             <div className="main-flex-container">             
               <div className="workout-container">
               <WorkoutList isLogged={this.state.isLogged} modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
               </div>            
               <div className="aside-container">
+              <div>
+                {this.state.isLogged ? <p className='login'>Welcome, {this.state.loggedUser}! </p> : null}
+                {this.state.isLogged ? <button onClick={this.logoutUser} className="newButton loginModalButton">Logout</button>
+                :
+                <UserLogin createUser={this.createUser} loginUser={this.loginUser} buttonLabel={'Login/Register'}/>}
+              </div>
+                
                 {this.state.forecast ? <WeatherAside  forecast={this.state.forecast}/> : null}
               </div>           
             </div>

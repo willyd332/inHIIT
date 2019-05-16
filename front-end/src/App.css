@@ -92,10 +92,15 @@ button.btn.btn-secondary {
 
 .aside-container {
   width: 30%;
-  margin-top: 37px;
+  margin-top: 10px;
   margin-right: 20px;
   display: flex;
   flex-direction: column;
+}
+
+.aside-container p.login {
+  margin-bottom: -10px;
+  color: #0070B9;
 }
 
 div.workout-div {
