@@ -4,6 +4,7 @@ const WorkoutModel = require('./WorkoutModel');
 const userSchema = new mongoose.Schema({
     userName: {type: String, required: true, unique: true},
     userPassword: {type: String, required: true},
+    zipCode: Number,
     workouts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: WorkoutModel
@@ -11,3 +12,4 @@ const userSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('User', userSchema); 
+

@@ -50,7 +50,8 @@ router.post('/register', async (req, res) => {
                 status: 200,
                 data: {
                     msg: `login successful for ${createdUser.userName}`,
-                    user: req.session.username
+                    user: req.session.username,
+                    usersDbId: req.session.usersDbId
                 }
             });
         }        
@@ -103,7 +104,8 @@ router.post('/login', async (req, res) => {
                     status: 200,
                     data: {
                         msg: `login successful`,
-                        user: req.session.username
+                        user: req.session.username,
+                        usersDbId: req.session.usersDbId
                     }
                 });
                 

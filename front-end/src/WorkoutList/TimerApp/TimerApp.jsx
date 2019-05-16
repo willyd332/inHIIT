@@ -73,7 +73,7 @@ class TimerApp extends Component {
                         <p>Cycle: {Math.floor(this.state.cycles / 2)  + 1}</p>
                         <p>{this.state.whichInterval}</p>
                         <h1>{this.state.seconds}</h1>
-                        <img id={`image${this.props.index}`} className="hidden victoryImg" src={require('../../../images/crushed_it.png')} alt="name" />
+                        <img id={`image${this.props.index}`} className="hidden victoryImg" src={require('../../images/crushed_it.png')} alt="name" />
                     </div>
                     <div className="flex-container">
                         <button onClick={this.timer} className='start-button'>Start</button>

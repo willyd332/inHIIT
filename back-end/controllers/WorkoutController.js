@@ -28,7 +28,9 @@ router.post('/', async (req, res) => {
     try {
       console.log(req.body, ' this is req.body in create route');
       const createdWorkout = await Workout.create(req.body);
-      console.log('response happening?')
+      const updatedUserWorkout = await Workout.findByIdAndUpdate(createdWorkout._id, {user : req.session.usersDbId}, {new: true});
+      console.log(updatedUserWorkout, '<-- this is workout with user id added');
+      console.log(req.session, 'this is req.session');
       res.json({
         status: 200,
         data: createdWorkout

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const UserModel = require('./UserModel');
 
 const workoutSchema = new mongoose.Schema({
     name: String,
@@ -10,7 +11,11 @@ const workoutSchema = new mongoose.Schema({
         type: Number,
         
     },
-    cycles: Number
+    cycles: Number,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: UserModel
+    }
 })
 
 const workout = mongoose.model('WorkoutModel', workoutSchema);

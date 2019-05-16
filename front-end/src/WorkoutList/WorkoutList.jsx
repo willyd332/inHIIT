@@ -33,17 +33,17 @@ const WorkoutList = (props) => {
                     
                     </div>
                     
-                    <EditWorkout workout={workout} modalShows={props.modalShows} editWorkout={props.editWorkout} handleFormChange={props.handleFormChange}></EditWorkout>
-                    <button className="delete" onClick={() =>{
+                    {props.isLogged ? <EditWorkout workout={workout} modalShows={props.modalShows} editWorkout={props.editWorkout} handleFormChange={props.handleFormChange}></EditWorkout> : null} 
+                    {props.isLogged ? <button className="delete" onClick={() =>{
                         props.deleteWorkout(workout._id)
-                    }}>Delete</button>                
+                    }}>Delete</button> : null}      
             </div>
         )
     });
 
     return(
         <div>
-            <NewWorkout buttonLabel={"New Workout"} createWorkout={props.createWorkout}/>
+            {props.isLogged ? <NewWorkout buttonLabel={"New Workout"} createWorkout={props.createWorkout}/> : null}
             <div className="flex-container">
                 {workouts}
             </div>
