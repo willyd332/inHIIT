@@ -9,7 +9,7 @@ class TimerApp extends Component {
             cycles: 0,
             interval: null,
             whichInterval: 'Interval One',
-            victoryMessage: ""
+            victoryMessage: ''
         }    
     }
 
@@ -27,7 +27,7 @@ class TimerApp extends Component {
                 clearInterval(this.state.interval);
                 this.setState({
                     seconds: null,
-                    victoryMessage: "Crushed It!",
+                    victoryMessage: 'Crushed It!',
                     cycles: 199
                 })
             }else if(this.state.seconds < this.state.intervalEnd){
@@ -71,17 +71,29 @@ class TimerApp extends Component {
         
     }
 
+    resetTimer = () => {
+        document.getElementById(`image${this.props.index}`).classList.toggle('hidden');
+        this.setState({
+            seconds: 0,
+            intervalEnd: 0,
+            cycles: 0,
+            interval: null,
+            whichInterval: 'Interval One',
+            victoryMessage: ''
+        })
+    }
+
     render(){
         return(
-            <div className="flex-container" id={this.props.timerID}>
+            <div className='flex-container' id={this.props.timerID}>
                 <div>
-                    <div id="timer-div" className='timer'>
+                    <div id='timer-div' className='timer'>
                         <p>Cycle: {Math.floor(this.state.cycles / 2)  + 1}</p>
                         <p>{this.state.whichInterval}</p>
                         <h1>{this.state.seconds}</h1>
-                        <img id={`image${this.props.index}`} className="hidden victoryImg" src={require('../../images/crushed_it.png')} alt="name" />
+                        <img onClick={this.resetTimer} id={`image${this.props.index}`} className='hidden victoryImg' src={require('../../images/crushed_it.png')} alt='name' />
                     </div>
-                    <div className="flex-container">
+                    <div className='flex-container'>
                         <button onClick={this.timer} className='start-button'>Start</button>
                         <button onClick={this.pause} className='stop-button'>Pause</button>
                     </div>

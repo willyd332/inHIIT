@@ -32,8 +32,8 @@ class UserLogin extends Component {
         
 
         return (
-        <div className="flex-container">
-            <Button className="newButton loginModalButton" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        <div className='flex-container'>
+            <Button className='newButton loginModalButton' onClick={this.toggle}>{this.props.buttonLabel}</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
             <ModalHeader toggle={this.toggle}>Login / Register</ModalHeader>
             
@@ -41,17 +41,17 @@ class UserLogin extends Component {
                 <form onSubmit={this.props.createUser.bind(null, this.state)}>
                     <div>
                         <p>Register New User</p>
-                        Name: <input onChange={this.updateState} type="text" name="userName"/><br/>
-                        Password: <input onChange={this.updateState} type="password" name="userPassword"/><br/>
-                        <button id="loginSubmit" onClick={this.toggle} type="submit">Submit</button>
+                        Name: <input onChange={this.updateState} type='text' name='userName'/><br/>
+                        Password: <input onChange={this.updateState} type='password' name='userPassword'/><br/>
+                        <button id='loginSubmit' onClick={this.toggle} type='submit'>Submit</button>
                     </div>
                 </form>
                 <form onSubmit={this.props.loginUser.bind(null, this.state)}>
                     <div>
                         <p>Login Existing User</p>
-                        Name: <input onChange={this.updateState} type="text" name="userName"/><br/>
-                        Password: <input onChange={this.updateState} type="password" name="userPassword"/><br/> 
-                        <button id="loginCancel"onClick={this.toggle} type="submit">Submit</button>                   
+                        Name: <input onChange={this.updateState} type='text' name='userName'/><br/>
+                        Password: <input onChange={this.updateState} type='password' name='userPassword'/><br/> 
+                        <button id='loginCancel' onClick={this.toggle} type='submit'>Submit</button>                   
                     </div>
                 </form>
                     

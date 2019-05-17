@@ -21,17 +21,17 @@ class WeatherForecast extends Component {
             <div id='forecast' className='flex-container'>
                 
                 <div className='weather-div city'>
-                    <p className="weather-title">{this.props.weatherData.city}, {this.props.weatherData.currentSummary}</p>           
+                    <p className='weather-title'>{this.props.weatherData.city}, {this.props.weatherData.currentSummary}</p>           
                     <form onSubmit={(e) => {
                         this.props.weatherSearch(e, this.state.zipCode)
                     }}>
-                    <input onChange={this.updateState} type="text" name="zipCode" placeholder="zip code"/>
-                    <button type="submit">Submit</button> 
+                    <input onChange={this.updateState} type='text' name='zipCode' placeholder='zip code'/>
+                    <button type='submit'>Submit</button> 
                     </form>
                 </div>
 
                 <div className='weather-div'>                
-                    <h1 id="temp" >{this.props.weatherData.temp}°</h1>
+                    <h1 id='temp' >{this.props.weatherData.temp}°</h1>
                 </div>                    
                 
             </div>

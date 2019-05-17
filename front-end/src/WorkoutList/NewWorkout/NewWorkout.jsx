@@ -29,25 +29,25 @@ class NewWorkout extends Component {
 
   render() {
     return (
-      <div className="flex-container">
-        <Button className="newButton" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+      <div className='flex-container'>
+        <Button className='newButton' onClick={this.toggle}>{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>New Workout</ModalHeader>
           <form onSubmit={this.props.createWorkout.bind(null, this.state)}>
           <ModalBody>
             
                 
-                    Name: <input onChange={this.updateState} type="text" name="name"/><br/>
-                    IntervalOne: <input onChange={this.updateState} type="text" name="intervalOne"/><br/>
-                    IntervalTwo: <input onChange={this.updateState} type="text" name="intervalTwo"/><br/>
-                    Cycles: <input onChange={this.updateState} type="text" name="cycles"/><br/>
+                    Name: <input onChange={this.updateState} type='text' name='name'/><br/>
+                    IntervalOne: <input onChange={this.updateState} type='text' name='intervalOne'/><br/>
+                    IntervalTwo: <input onChange={this.updateState} type='text' name='intervalTwo'/><br/>
+                    Cycles: <input onChange={this.updateState} type='text' name='cycles'/><br/>
                     
                 
 
           </ModalBody>
           <ModalFooter>
-            <Button type="submit" color="primary" onClick={this.toggle}>Submit</Button>{' '}
-            <Button color="secondary" id="cancel" onClick={this.toggle}>Cancel</Button>
+            <Button type='submit' color='primary' onClick={this.toggle}>Submit</Button>{' '}
+            <Button color='secondary' id='cancel' onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
           </form>
         </Modal>

@@ -75,15 +75,13 @@ class App extends Component {
             const parsedWeather = await response.json();
             const forecastArray = [];
             parsedWeather.daily.data.forEach((day) => {
-                //console.log(parsedWeather.currently.icon);
                 forecastArray.push({
                     summary: day.summary,
                     precipProb: day.precipProbability,
                     precipType: day.precipType,
                     tempHigh: day.temperatureHigh,
                     tempLow: day.temperatureLow,
-                    unixTime: day.time
-                    
+                    unixTime: day.time                    
                 })
             })
 
@@ -111,7 +109,7 @@ class App extends Component {
 
       iconArr.forEach((icon) => {
         if(icon === currentIcon){
-          document.getElementsByTagName("body")[0].setAttribute("class", icon);
+          document.getElementsByTagName('body')[0].setAttribute('class', icon);
         }
       })
     }
@@ -131,8 +129,6 @@ class App extends Component {
           });
 
           const parsedResponse = await createdUser.json();
-          console.log(parsedResponse, "parsed response");
-
             if(parsedResponse.data !== 'User name not available'){
               this.setState({
                 isLogged: true,
@@ -153,8 +149,6 @@ class App extends Component {
 
   loginUser = async (formData, e) => {
       e.preventDefault();
-      console.log('loginUser function');
-
       try {
         const loginUser = await fetch('http://localhost:9000/users/login', {
         method: 'POST',
@@ -164,10 +158,7 @@ class App extends Component {
             'Content-Type': 'application/json',
         }
         })
-
         const parsedResponse = await loginUser.json();
-        console.log(parsedResponse.data.msg, 'this is parsedResponse'); 
-
         if(parsedResponse.data.msg === 'login successful'){
           this.setState({
             isLogged: true,
@@ -181,9 +172,6 @@ class App extends Component {
             logFailMsg: 'Username or Password Incorrect'
           })
         }
-
-        
-
       } catch(err) {
         console.log(err);
       }
@@ -191,8 +179,6 @@ class App extends Component {
   }
 
   logoutUser = async () => {
-    console.log('logout function');
-    
     try {
       const logoutUser = await fetch('http://localhost:9000/users/logout', {
         method: 'GET',
@@ -268,7 +254,6 @@ class App extends Component {
   }
 
   deleteWorkout = async (deletedWorkoutID) => {
-    console.log(deletedWorkoutID, 'hit delete function');
     try{
         const deleteWorkout = await fetch(`http://localhost:9000/workouts/${deletedWorkoutID}`, {
             method: 'DELETE',
@@ -279,8 +264,7 @@ class App extends Component {
         });
 
         const parsedResponse = await deleteWorkout.json();
-        console.log(parsedResponse, 'parsed response');
-        console.log(deletedWorkoutID, "deletedWorkoutID from before")
+
         if(parsedResponse.status === 200){
             this.setState({
                 workouts: this.state.workouts.filter(workout => workout._id !== deletedWorkoutID)
@@ -296,7 +280,6 @@ class App extends Component {
 
   editWorkout = async (e) => {
     e.preventDefault();
-    console.log(this.state.workoutToEdit._id)
     try {
         const updateWorkout = await fetch('http://localhost:9000/workouts/' + this.state.workoutToEdit._id, {
             method: 'PUT',
@@ -341,37 +324,37 @@ class App extends Component {
 
 
 
-    render(){
-        return (
-          <div id="app" className="App flex-container">
-            <div className='logo-div'>
-            <div>
-              <img className='logo' src={require('./images/inHIIT_logo.png')} alt="logo"></img>
-            </div>
-              <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>              
-            </div>
-
-            
-
-            <div className="main-flex-container">             
-              <div className="workout-container">
-              <WorkoutList isLogged={this.state.isLogged} modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
-              </div>            
-              <div className="aside-container">
-              <div>
-                <p className='failure'>{this.state.logFailMsg}</p>
-                {this.state.isLogged ? <p className='login'>Welcome, {this.state.loggedUser}! </p> : null}
-                {this.state.isLogged ? <button onClick={this.logoutUser} className="newButton loginModalButton">Logout</button>
-                :
-                <UserLogin createUser={this.createUser} loginUser={this.loginUser} buttonLabel={'Login/Register'}/>}
-              </div>
-                
-                {this.state.forecast ? <WeatherAside  forecast={this.state.forecast}/> : null}
-              </div>           
-            </div>
+  render(){
+      return (
+        <div id='app' className='App flex-container'>
+          <div className='logo-div'>
+          <div>
+            <img className='logo' src={require('./images/inHIIT_logo.png')} alt='logo'></img>
           </div>
-        )
-    }
+            <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>              
+          </div>
+
+          
+
+          <div className='main-flex-container'>             
+            <div className='workout-container'>
+            <WorkoutList isLogged={this.state.isLogged} modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
+            </div>            
+            <div className='aside-container'>
+            <div>
+              <p className='failure'>{this.state.logFailMsg}</p>
+              {this.state.isLogged ? <p className='login'>Welcome, {this.state.loggedUser}! </p> : null}
+              {this.state.isLogged ? <button onClick={this.logoutUser} className='newButton loginModalButton'>Logout</button>
+              :
+              <UserLogin createUser={this.createUser} loginUser={this.loginUser} buttonLabel={'Login/Register'}/>}
+            </div>
+              
+              {this.state.forecast ? <WeatherAside  forecast={this.state.forecast}/> : null}
+            </div>           
+          </div>
+        </div>
+      )
+  }
 }
 
 export default App;
