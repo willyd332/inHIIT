@@ -10,10 +10,10 @@ require('./db/db');
 
 
 app.use(cors({
-    origin: ["http://localhost:3000", "https://api.darksky.net"],
+    origin: ['http://localhost:3000', 'https://api.darksky.net'],
     credentials: true,
     optionsSuccessStatus: 200
-}))
+}));
 
 app.use(morgan('short'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -26,7 +26,7 @@ const store = new MongoDBStore({
 
 store.on('error', function(error) {
     console.log(error);
-})
+});
 
 app.use(session({
     secret: 'HIIT me baby one more time',
@@ -35,18 +35,10 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24 * 7
     },
     store: store
-}))
+}));
 
 const workoutController = require('./controllers/WorkoutController');
 const userController = require('./controllers/UserController');
-
-// check if this is doing anything - dont think it is...
-// app.use((req, res, next) => {
-//     if(req.session.usersDbId){
-//         res.locals.userId = req.session.usersDbId
-//     }
-//     next();
-// })
 
 app.use('/workouts', workoutController);
 app.use('/users', userController);
@@ -57,5 +49,5 @@ app.use('/users', userController);
 
 
 app.listen(process.env.PORT || 9000, ()=>{
-    console.log("Server is running on port 9000")
-})
+    console.log('Server is running on port 9000')
+});

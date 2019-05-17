@@ -24,13 +24,11 @@ router.get('/', async (req, res, next) => {
 
 //CREATE NEW ROUTE
 router.post('/', async (req, res) => {
-    console.log('hit post route');
     try {
       console.log(req.body, ' this is req.body in create route');
       const createdWorkout = await Workout.create(req.body);
       const updatedUserWorkout = await Workout.findByIdAndUpdate(createdWorkout._id, {user : req.session.usersDbId}, {new: true});
       console.log(updatedUserWorkout, '<-- this is workout with user id added');
-      console.log(req.session, 'this is req.session');
       res.json({
         status: 200,
         data: createdWorkout
@@ -81,16 +79,16 @@ router.put('/:id', async (req, res) => {
 //SHOW ROUTE
 
 router.get('/:id', async (req, res, next) => {
-try{
-    const foundWorkout = await Workout.findById(req.params.id);
+    try{
+        const foundWorkout = await Workout.findById(req.params.id);
 
-    res.json({
-        status: 200,
-        data: foundWorkout
-    })
-} catch(err) {
-    console.log(err)
-}
+        res.json({
+            status: 200,
+            data: foundWorkout
+        })
+    } catch(err) {
+        console.log(err)
+    }
 
 });
 
