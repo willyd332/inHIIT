@@ -5,10 +5,10 @@ class UserLogin extends Component {
     constructor(){
         super();
         this.state = {
-            
-            userName: '',
-            userPassword: '',
-            
+
+            username: '',
+            userpassword: '',
+
             modal: false
         }
         this.toggle = this.toggle.bind(this);
@@ -21,7 +21,7 @@ class UserLogin extends Component {
         })
     }
 
-    
+
     toggle() {
         this.setState(prevState => ({
         modal: !prevState.modal
@@ -29,32 +29,32 @@ class UserLogin extends Component {
     }
 
     render() {
-        
+
 
         return (
         <div className='flex-container'>
-            <Button className='newButton loginModalButton' onClick={this.toggle}>{this.props.buttonLabel}</Button>
-            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+          <Button className='newButton loginModalButton' onClick={this.toggle}>{this.props.buttonLabel}</Button>
+          <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
             <ModalHeader toggle={this.toggle}>Login / Register</ModalHeader>
-            
+
             <ModalBody>
-                <form onSubmit={this.props.createUser.bind(null, this.state)}>
-                    <div>
-                        <p>Register New User</p>
-                        Name: <input onChange={this.updateState} type='text' name='userName'/><br/>
-                        Password: <input onChange={this.updateState} type='password' name='userPassword'/><br/>
-                        <button id='loginSubmit' onClick={this.toggle} type='submit'>Submit</button>
+              <form onSubmit={this.props.createUser.bind(null, this.state)}>
+                <div>
+                  <p>Register New User</p>
+                  Name: <input onChange={this.updateState} type='text' name='username'/><br/>
+                  Password: <input onChange={this.updateState} type='password' name='userpassword'/><br/>
+                  <button id='loginSubmit' onClick={this.toggle} type='submit'>Submit</button>
+                </div>
+              </form>
+              <form onSubmit={this.props.loginUser.bind(null, this.state)}>
+                <div>
+                  <p>Login Existing User</p>
+                  Name: <input onChange={this.updateState} type='text' name='username'/><br/>
+                  Password: <input onChange={this.updateState} type='password' name='userpassword'/><br/>
+                        <button id='loginCancel' onClick={this.toggle} type='submit'>Submit</button>
                     </div>
                 </form>
-                <form onSubmit={this.props.loginUser.bind(null, this.state)}>
-                    <div>
-                        <p>Login Existing User</p>
-                        Name: <input onChange={this.updateState} type='text' name='userName'/><br/>
-                        Password: <input onChange={this.updateState} type='password' name='userPassword'/><br/> 
-                        <button id='loginCancel' onClick={this.toggle} type='submit'>Submit</button>                   
-                    </div>
-                </form>
-                    
+
 
             </ModalBody>
 
@@ -65,4 +65,3 @@ class UserLogin extends Component {
     }
 
     export default UserLogin;
-

@@ -117,6 +117,7 @@ class App extends Component {
     createUser = async (formData, e) => {
       e.preventDefault();
 
+      console.log(formData);
 
       try {
           const createdUser = await fetch('http://localhost:8080/users/register', {
@@ -129,11 +130,14 @@ class App extends Component {
           });
 
           const parsedResponse = await createdUser.json();
+
+          console.log(parsedResponse);
+
             if(parsedResponse.data !== 'User name not available'){
               this.setState({
                 isLogged: true,
-                loggedUser: parsedResponse.data.user,
-                loggedUserId: parsedResponse.data.usersDbId,
+                loggedUser: parsedResponse.username,
+                loggedUserId: parsedResponse.id,
             })
           } else {
             this.setState({
@@ -160,7 +164,7 @@ class App extends Component {
         })
         const parsedResponse = await loginUser.json();
 
-        if(parsedResponse.data.msg === 'login successful'){
+        if(parsedResponse.msg === 'login successful'){
           this.setState({
             isLogged: true,
             loggedUser: parsedResponse.data.user,
@@ -214,7 +218,7 @@ class App extends Component {
 
         if(this.state.isLogged){
             const workoutArr = parsedWorkouts;
-            const userWorkouts = workoutArr.filter((workout) => workout.user.id == this.state.loggedUserId);
+            const userWorkouts = workoutArr.filter((workout) => workout.user.id === this.state.loggedUserId);
             this.setState({
                 workouts: userWorkouts
             });
@@ -222,7 +226,7 @@ class App extends Component {
         } else {
           const adminUserId = 1;
           const workoutArr = parsedWorkouts;
-          const userWorkouts = workoutArr.filter((workout) => workout.user.id == adminUserId);
+          const userWorkouts = workoutArr.filter((workout) => workout.user.id === adminUserId);
 
             this.setState({
                 workouts: userWorkouts
