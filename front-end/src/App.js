@@ -15,18 +15,18 @@ class App extends Component {
         weather: {
             temp: null,
             currentSummary: '',
-            dailyOutlook: '',            
-        },        
-        
+            dailyOutlook: '',
+        },
+
         forecast: null,
         lat: 39.7392,
         long: -104.9903,
-        city: 'Denver',  
+        city: 'Denver',
         isLogged: false,
         loggedUser: '',
         loggedUserId: '',
         logFailMsg: '',
-        
+
         workouts: [],
         workoutToEdit: {
           _id: null,
@@ -34,18 +34,18 @@ class App extends Component {
           intervalOne: 0,
           intervalTwo: 0,
           cycles: 0
-      },  
+      },
       }
-      
+
     }
 
-    componentDidMount(){      
+    componentDidMount(){
       this.getWeather();
       this.getWorkouts();
     }
 
     weatherSearch = async (e, zipCode) => {
-      e.preventDefault();      
+      e.preventDefault();
       try{
           const response = await fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?address="${zipCode}"&key=AIzaSyDVPLLlJAQ679Frd0gu11khJ9mW02wsvWQ`);
           if(response.status !== 200){
@@ -60,8 +60,8 @@ class App extends Component {
           })
       } catch(err){
           console.log(err);
-      }      
-      this.getWeather(); 
+      }
+      this.getWeather();
   }
 
     getWeather = async () => {
@@ -81,7 +81,7 @@ class App extends Component {
                     precipType: day.precipType,
                     tempHigh: day.temperatureHigh,
                     tempLow: day.temperatureLow,
-                    unixTime: day.time                    
+                    unixTime: day.time
                 })
             })
 
@@ -119,7 +119,7 @@ class App extends Component {
 
 
       try {
-          const createdUser = await fetch('http://localhost:9000/users/register', {
+          const createdUser = await fetch('http://localhost:8080/users/register', {
               method: 'POST',
               credentials: 'include',
               body: JSON.stringify(formData),
@@ -150,7 +150,7 @@ class App extends Component {
   loginUser = async (formData, e) => {
       e.preventDefault();
       try {
-        const loginUser = await fetch('http://localhost:9000/users/login', {
+        const loginUser = await fetch('http://localhost:8080/users/login', {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(formData),
@@ -159,6 +159,7 @@ class App extends Component {
         }
         })
         const parsedResponse = await loginUser.json();
+
         if(parsedResponse.data.msg === 'login successful'){
           this.setState({
             isLogged: true,
@@ -180,7 +181,7 @@ class App extends Component {
 
   logoutUser = async () => {
     try {
-      const logoutUser = await fetch('http://localhost:9000/users/logout', {
+      const logoutUser = await fetch('http://localhost:8080/users/logout', {
         method: 'GET',
         credentials: 'include'
       })
@@ -202,31 +203,33 @@ class App extends Component {
   getWorkouts = async () => {
 
     try {
-        const response = await fetch('http://localhost:9000/workouts');
+        const response = await fetch('http://localhost:8080/workouts');
 
         if(response.status !== 200){
             throw(Error(response.statusText));
         }
 
-        const parsedWorkouts = await response.json();        
+        const parsedWorkouts = await response.json();
+
+
         if(this.state.isLogged){
-            const workoutArr = parsedWorkouts.data;
-            const userWorkouts = workoutArr.filter((workout) => workout.user.toString() === this.state.loggedUserId.toString());
+            const workoutArr = parsedWorkouts;
+            const userWorkouts = workoutArr.filter((workout) => workout.user.id == this.state.loggedUserId);
+            this.setState({
+                workouts: userWorkouts
+            });
+
+        } else {
+          const adminUserId = 1;
+          const workoutArr = parsedWorkouts;
+          const userWorkouts = workoutArr.filter((workout) => workout.user.id == adminUserId);
+
             this.setState({
                 workouts: userWorkouts
             })
 
-        } else {
-          const adminUserId = '5cddbea066a0da8bcea93c44';
-          const workoutArr = parsedWorkouts.data;
-          const userWorkouts = workoutArr.filter((workout) => workout.user.toString() === adminUserId.toString());
-          
-            this.setState({
-                workouts: userWorkouts
-            })
-            
         }
-        
+
     } catch(err) {
         console.log(err);
     }
@@ -236,7 +239,7 @@ class App extends Component {
   createWorkout = async (formData, e) => {
     e.preventDefault();
     try {
-        const createdWorkout = await fetch('http://localhost:9000/workouts', {
+        const createdWorkout = await fetch('http://localhost:8080/workouts', {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(formData),
@@ -255,7 +258,7 @@ class App extends Component {
 
   deleteWorkout = async (deletedWorkoutID) => {
     try{
-        const deleteWorkout = await fetch(`http://localhost:9000/workouts/${deletedWorkoutID}`, {
+        const deleteWorkout = await fetch(`http://localhost:8080/workouts/${deletedWorkoutID}`, {
             method: 'DELETE',
             credentials: 'include',
             headers: {
@@ -281,7 +284,7 @@ class App extends Component {
   editWorkout = async (e) => {
     e.preventDefault();
     try {
-        const updateWorkout = await fetch('http://localhost:9000/workouts/' + this.state.workoutToEdit._id, {
+        const updateWorkout = await fetch('http://localhost:8080/workouts/' + this.state.workoutToEdit._id, {
             method: 'PUT',
             credentials: 'include',
             body: JSON.stringify(this.state.workoutToEdit),
@@ -304,13 +307,13 @@ class App extends Component {
 
     } catch(err) {
         console.log(err)
-    }        
+    }
   };
 
   handleFormChange = (e) => {
     this.setState({
         workoutToEdit: {
-            ...this.state.workoutToEdit, 
+            ...this.state.workoutToEdit,
             [e.target.name]: e.target.value
         }
     })
@@ -331,15 +334,15 @@ class App extends Component {
           <div>
             <img className='logo' src={require('./images/inHIIT_logo.png')} alt='logo'></img>
           </div>
-            <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>              
+            <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>
           </div>
 
-          
 
-          <div className='main-flex-container'>             
+
+          <div className='main-flex-container'>
             <div className='workout-container'>
-            <WorkoutList isLogged={this.state.isLogged} modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
-            </div>            
+            <WorkoutList isLogged={this.state.isLogged} modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/>
+            </div>
             <div className='aside-container'>
             <div>
               <p className='failure'>{this.state.logFailMsg}</p>
@@ -348,9 +351,9 @@ class App extends Component {
               :
               <UserLogin createUser={this.createUser} loginUser={this.loginUser} buttonLabel={'Login/Register'}/>}
             </div>
-              
+
               {this.state.forecast ? <WeatherAside  forecast={this.state.forecast}/> : null}
-            </div>           
+            </div>
           </div>
         </div>
       )
