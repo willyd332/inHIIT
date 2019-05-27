@@ -6,8 +6,8 @@ class NewWorkout extends Component {
         super();
         this.state = {
             name: '',
-            intervalOne: null,
-            intervalTwo: null,
+            intervalone: null,
+            intervaltwo: null,
             cycles: null,
             modal: false
         }
@@ -34,21 +34,21 @@ class NewWorkout extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>New Workout</ModalHeader>
           <form onSubmit={this.props.createWorkout.bind(null, this.state)}>
-          <ModalBody>
-            
-                
-                    Name: <input onChange={this.updateState} type='text' name='name'/><br/>
-                    IntervalOne: <input onChange={this.updateState} type='text' name='intervalOne'/><br/>
-                    IntervalTwo: <input onChange={this.updateState} type='text' name='intervalTwo'/><br/>
-                    Cycles: <input onChange={this.updateState} type='text' name='cycles'/><br/>
-                    
-                
+            <ModalBody>
 
-          </ModalBody>
-          <ModalFooter>
-            <Button type='submit' color='primary' onClick={this.toggle}>Submit</Button>{' '}
-            <Button color='secondary' id='cancel' onClick={this.toggle}>Cancel</Button>
-          </ModalFooter>
+
+              Name: <input onChange={this.updateState} type='text' name='name'/><br/>
+              IntervalOne: <input onChange={this.updateState} type='text' name='intervalone'/><br/>
+              IntervalTwo: <input onChange={this.updateState} type='text' name='intervaltwo'/><br/>
+              Cycles: <input onChange={this.updateState} type='text' name='cycles'/><br/>
+
+
+
+            </ModalBody>
+            <ModalFooter>
+              <Button type='submit' color='primary' onClick={this.toggle}>Submit</Button>{' '}
+              <Button color='secondary' id='cancel' onClick={this.toggle}>Cancel</Button>
+            </ModalFooter>
           </form>
         </Modal>
       </div>
@@ -57,5 +57,3 @@ class NewWorkout extends Component {
 }
 
 export default NewWorkout;
-
-

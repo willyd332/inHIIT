@@ -29,10 +29,10 @@ class App extends Component {
 
         workouts: [],
         workoutToEdit: {
-          _id: null,
+          id: null,
           name: '',
-          intervalOne: 0,
-          intervalTwo: 0,
+          intervalone: 0,
+          intervaltwo: 0,
           cycles: 0
       },
       }
@@ -133,12 +133,13 @@ class App extends Component {
 
           console.log(parsedResponse);
 
-            if(parsedResponse.data !== 'User name not available'){
+            if(parsedResponse){
               this.setState({
                 isLogged: true,
                 loggedUser: parsedResponse.username,
                 loggedUserId: parsedResponse.id,
-            })
+            });
+            this.getWorkouts();
           } else {
             this.setState({
               logFailMsg: 'User name not available'
@@ -148,7 +149,6 @@ class App extends Component {
       } catch(err) {
           console.log(err)
       }
-      this.getWorkouts();
   }
 
   loginUser = async (formData, e) => {
@@ -164,13 +164,12 @@ class App extends Component {
         })
         const parsedResponse = await loginUser.json();
 
-        if(parsedResponse.msg === 'login successful'){
+        if(parsedResponse){
           this.setState({
             isLogged: true,
-            loggedUser: parsedResponse.data.user,
-            loggedUserId: parsedResponse.data.usersDbId,
-            logFailMsg: '',
-          })
+            loggedUser: parsedResponse.username,
+            loggedUserId: parsedResponse.id,
+        });
           this.getWorkouts();
         } else {
           this.setState({
@@ -215,6 +214,7 @@ class App extends Component {
 
         const parsedWorkouts = await response.json();
 
+        console.log(parsedWorkouts);
 
         if(this.state.isLogged){
             const workoutArr = parsedWorkouts;
@@ -253,7 +253,7 @@ class App extends Component {
         });
 
         const parsedResponse = await createdWorkout.json();
-        this.setState({workouts: [...this.state.workouts, parsedResponse.data]})
+        this.setState({workouts: [...this.state.workouts, parsedResponse]})
 
     } catch(err) {
         console.log(err)
@@ -272,10 +272,10 @@ class App extends Component {
 
         const parsedResponse = await deleteWorkout.json();
 
-        if(parsedResponse.status === 200){
+        if(parsedResponse){
             this.setState({
-                workouts: this.state.workouts.filter(workout => workout._id !== deletedWorkoutID)
-            })
+                workouts: this.state.workouts.filter(workout => workout.id !== deletedWorkoutID)
+            });
         }
 
 
@@ -288,7 +288,7 @@ class App extends Component {
   editWorkout = async (e) => {
     e.preventDefault();
     try {
-        const updateWorkout = await fetch('http://localhost:8080/workouts/' + this.state.workoutToEdit._id, {
+        const updateWorkout = await fetch('http://localhost:8080/workouts/' + this.state.workoutToEdit.id, {
             method: 'PUT',
             credentials: 'include',
             body: JSON.stringify(this.state.workoutToEdit),
@@ -299,8 +299,8 @@ class App extends Component {
 
         const parsedResponse = await updateWorkout.json();
         const editedWorkoutArr = this.state.workouts.map((workout) => {
-            if(workout._id === this.state.workoutToEdit._id){
-                workout = parsedResponse.data
+            if(workout.id === this.state.workoutToEdit.id){
+                workout = parsedResponse
             }
             return workout
         });

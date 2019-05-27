@@ -30,8 +30,8 @@ div.logo-div {
 img.logo {
   max-height: 120px;
   margin: 30px;
-  
-  
+
+
 }
 
 div.start {
@@ -108,7 +108,7 @@ div.workout-div {
   margin: 5px;
   border-radius: 10px;
   flex-direction: column;
-  
+
 }
 
 .workout-div p {
@@ -186,7 +186,7 @@ div.timer p {
 button.loginModalButton {
   height: 50px;
   width: 150px;
-  
+
 }
 
 button.start-button {
@@ -262,20 +262,20 @@ div.modal-header, div.modal-body, div.modal-footer {
 }
 
 div.modal-header {
-  
+
   border-bottom: none;
-  
+
   border-radius: 0px;
 }
 
 div.modal-body {
-  
+
   border-top: none;
   border-bottom: none;
 }
 
 div.modal-footer {
-  
+
   border-top: none;
   border-radius: 0px;
   padding: 0px;
@@ -352,20 +352,25 @@ button#loginCancel:hover {
   }
 }
 
-@media only screen and (max-width: 800px) {
+/* @media only screen and (max-width: 800px) {
   .main-flex-container {
-    flex-wrap: wrap;
+    padding: 10px;
+    position: relative;
+    width: 100vw;
   }
   .workout-container {
     width: 100%;
   }
 
   .aside-container {
-    visibility: hidden;
+    float: right;
+    margin-right: 0;
+    width: 40%;
+    overflow: visible;
   }
   div#forecast {
     visibility: hidden;
     width: 0px;
     height: 0px;
   }
-}
+} */
