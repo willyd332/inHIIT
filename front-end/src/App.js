@@ -287,17 +287,32 @@ class App extends Component {
 
   editWorkout = async (e) => {
     e.preventDefault();
+
+    const editedWorkout = {
+      cycles: parseInt(this.state.workoutToEdit.cycles),
+      intervalone: parseInt(this.state.workoutToEdit.intervalone),
+      intervaltwo: parseInt(this.state.workoutToEdit.intervaltwo),
+      name: this.state.workoutToEdit.name,
+      id: this.state.workoutToEdit.id,
+      user: this.state.workoutToEdit.user,
+    }
+
+    console.log(editedWorkout);
+
     try {
-        const updateWorkout = await fetch('http://localhost:8080/workouts/' + this.state.workoutToEdit.id, {
+        const updateWorkout = await fetch('http://localhost:8080/workouts/' + editedWorkout.id, {
             method: 'PUT',
             credentials: 'include',
-            body: JSON.stringify(this.state.workoutToEdit),
+            body: JSON.stringify(editedWorkout),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
 
         const parsedResponse = await updateWorkout.json();
+
+        console.log(parsedResponse);
+
         const editedWorkoutArr = this.state.workouts.map((workout) => {
             if(workout.id === this.state.workoutToEdit.id){
                 workout = parsedResponse

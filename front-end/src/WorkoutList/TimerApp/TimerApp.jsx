@@ -10,13 +10,13 @@ class TimerApp extends Component {
             interval: null,
             whichInterval: 'Interval One',
             victoryMessage: ''
-        }    
+        }
     }
 
     componentDidMount = () => {
         this.setState({
             seconds: 0,
-            intervalEnd: this.props.workout.intervalOne,
+            intervalEnd: this.props.workout.intervalone,
             cycles: 0
         })
     }
@@ -39,20 +39,20 @@ class TimerApp extends Component {
                 const newCycles = this.state.cycles + 1;
                 this.setState({
                     seconds: 0,
-                    intervalEnd: this.props.workout.intervalTwo,
+                    intervalEnd: this.props.workout.intervaltwo,
                     cycles: newCycles,
                     whichInterval: 'Interval Two'
-                    
-                })            
+
+                })
             } else if(this.state.cycles % 2 !== 0 && this.state.seconds === this.state.intervalEnd){
                 const newCycles = this.state.cycles + 1;
                 this.setState({
                     seconds: 0,
-                    intervalEnd: this.props.workout.intervalOne,
+                    intervalEnd: this.props.workout.intervalone,
                     cycles: newCycles,
                     whichInterval: 'Interval One'
                 })
-            }        
+            }
     }
 
     timer = () => {
@@ -68,7 +68,7 @@ class TimerApp extends Component {
     randomImage = () => {
         const imageArr = ['../../images/crushed_it.png'];
         return imageArr[Math.floor(Math.random() * imageArr.length)];
-        
+
     }
 
     resetTimer = () => {
@@ -104,4 +104,3 @@ class TimerApp extends Component {
 }
 
 export default TimerApp;
-

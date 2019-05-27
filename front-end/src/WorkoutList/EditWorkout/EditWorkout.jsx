@@ -23,24 +23,24 @@ class EditWorkout extends React.Component {
   }
 
   render() {
-    
+
 
     return (
       <div>
-        
+
         <button onClick={(e)=>{this.toggle(); this.selectThisWorkout();}}>Edit</button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Edit your workout!</ModalHeader>
-          
-          <form onSubmit={this.props.editWorkout}>
-          <ModalBody>
-                
-                    name: <input onChange={this.props.handleFormChange} type='text' name='name' placeholder={this.props.workout.name}/><br/>
-                    intervalOne: <input onChange={this.props.handleFormChange} type='text' name='intervalOne' placeholder={this.props.workout.intervalOne}/><br/>
-                    intervalTwo: <input onChange={this.props.handleFormChange} type='text' name='intervalTwo' placeholder={this.props.workout.intervalTwo}/><br/>
-                    cycles: <input onChange={this.props.handleFormChange} type='text' name='cycles' placeholder={this.props.workout.cycles}/><br/>
 
-                
+          <form onSubmit={this.props.editWorkout}>
+            <ModalBody>
+
+              name: <input onChange={this.props.handleFormChange} type='text' name='name' placeholder={this.props.workout.name}/><br/>
+              intervalOne: <input onChange={this.props.handleFormChange} type='text' name='intervalone' placeholder={this.props.workout.intervalone}/><br/>
+              intervalTwo: <input onChange={this.props.handleFormChange} type='text' name='intervaltwo' placeholder={this.props.workout.intervaltwo}/><br/>
+              cycles: <input onChange={this.props.handleFormChange} type='text' name='cycles' placeholder={this.props.workout.cycles}/><br/>
+
+
           </ModalBody>
           <ModalFooter>
             <Button type='submit' color='primary' onClick={this.toggle}>Let's Go!</Button>
@@ -48,7 +48,7 @@ class EditWorkout extends React.Component {
           </ModalFooter>
           </form>
         </Modal>
-        
+
       </div>
     );
   }
