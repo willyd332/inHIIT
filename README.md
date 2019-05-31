@@ -1,5 +1,7 @@
 # inHIIT
 
+### LINK TO DEPLOYED APP: https://calm-tundra-47736.herokuapp.com/
+
 ### LINK TO BACKEND: https://github.com/willyd332/IN-HIIT-JAVA/blob/master/README.md
 
 Adam Wolfman // Will Dinneen
